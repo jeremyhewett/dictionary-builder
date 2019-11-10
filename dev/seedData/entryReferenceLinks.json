@@ -1,0 +1,236 @@
+[
+  {
+    "id": 1,
+    "entryId": 2,
+    "referenceId": 1,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 2,
+    "entryId": 2,
+    "referenceId": 7,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 3,
+    "entryId": 2,
+    "referenceId": 9,
+    "svText": null,
+    "linkText": "\"Transportation and Technology: The Canoe\"",
+    "linkTarget": "http://www.hbcheritage.ca/hbcheritage/history/transportation/canoe/",
+    "accessedAt": "2012-11-14 00:00:00"
+  },
+  {
+    "id": 4,
+    "entryId": 4,
+    "referenceId": 1,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 5,
+    "entryId": 4,
+    "referenceId": 7,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 6,
+    "entryId": 4,
+    "referenceId": 9,
+    "svText": null,
+    "linkText": "\"Transportation and Technology: The Canoe\"",
+    "linkTarget": "http://www.hbcheritage.ca/hbcheritage/history/transportation/canoe/",
+    "accessedAt": "2012-11-14 00:00:00"
+  },
+  {
+    "id": 7,
+    "entryId": 1,
+    "referenceId": 1,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 8,
+    "entryId": 1,
+    "referenceId": 2,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 9,
+    "entryId": 1,
+    "referenceId": 6,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 10,
+    "entryId": 1,
+    "referenceId": 10,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 11,
+    "entryId": 1,
+    "referenceId": 5,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 12,
+    "entryId": 1,
+    "referenceId": 11,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 13,
+    "entryId": 9,
+    "referenceId": 1,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 14,
+    "entryId": 9,
+    "referenceId": 2,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 15,
+    "entryId": 9,
+    "referenceId": 8,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 16,
+    "entryId": 9,
+    "referenceId": 10,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 17,
+    "entryId": 9,
+    "referenceId": 5,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 18,
+    "entryId": 3,
+    "referenceId": 3,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 19,
+    "entryId": 10,
+    "referenceId": 5,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 20,
+    "entryId": 10,
+    "referenceId": 8,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 21,
+    "entryId": 10,
+    "referenceId": 1,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 22,
+    "entryId": 10,
+    "referenceId": 12,
+    "svText": "s.v.",
+    "linkText": "\"Bilingualism\"",
+    "linkTarget": "http://www.thecanadianencyclopedia.ca/en/article/bilingualism/",
+    "accessedAt": "2016-04-04 00:00:00"
+  },
+  {
+    "id": 23,
+    "entryId": 11,
+    "referenceId": 5,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 24,
+    "entryId": 12,
+    "referenceId": 5,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 25,
+    "entryId": 12,
+    "referenceId": 13,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  },
+  {
+    "id": 26,
+    "entryId": 13,
+    "referenceId": 4,
+    "svText": null,
+    "linkText": null,
+    "linkTarget": null,
+    "accessedAt": null
+  }
+]

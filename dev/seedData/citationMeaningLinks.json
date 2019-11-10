@@ -1,0 +1,547 @@
+[
+  {
+    "id": 1,
+    "meaningId": 1,
+    "citationId": 8
+  },
+  {
+    "id": 2,
+    "meaningId": 1,
+    "citationId": 18
+  },
+  {
+    "id": 3,
+    "meaningId": 1,
+    "citationId": 33
+  },
+  {
+    "id": 4,
+    "meaningId": 1,
+    "citationId": 34
+  },
+  {
+    "id": 5,
+    "meaningId": 1,
+    "citationId": 35
+  },
+  {
+    "id": 6,
+    "meaningId": 1,
+    "citationId": 64
+  },
+  {
+    "id": 7,
+    "meaningId": 1,
+    "citationId": 66
+  },
+  {
+    "id": 8,
+    "meaningId": 5,
+    "citationId": 16
+  },
+  {
+    "id": 9,
+    "meaningId": 5,
+    "citationId": 17
+  },
+  {
+    "id": 10,
+    "meaningId": 5,
+    "citationId": 36
+  },
+  {
+    "id": 11,
+    "meaningId": 5,
+    "citationId": 37
+  },
+  {
+    "id": 12,
+    "meaningId": 5,
+    "citationId": 38
+  },
+  {
+    "id": 13,
+    "meaningId": 5,
+    "citationId": 65
+  },
+  {
+    "id": 14,
+    "meaningId": 6,
+    "citationId": 39
+  },
+  {
+    "id": 15,
+    "meaningId": 6,
+    "citationId": 40
+  },
+  {
+    "id": 16,
+    "meaningId": 7,
+    "citationId": 41
+  },
+  {
+    "id": 17,
+    "meaningId": 7,
+    "citationId": 42
+  },
+  {
+    "id": 18,
+    "meaningId": 7,
+    "citationId": 43
+  },
+  {
+    "id": 19,
+    "meaningId": 8,
+    "citationId": 44
+  },
+  {
+    "id": 20,
+    "meaningId": 8,
+    "citationId": 45
+  },
+  {
+    "id": 21,
+    "meaningId": 8,
+    "citationId": 46
+  },
+  {
+    "id": 22,
+    "meaningId": 8,
+    "citationId": 67
+  },
+  {
+    "id": 23,
+    "meaningId": 9,
+    "citationId": 47
+  },
+  {
+    "id": 24,
+    "meaningId": 9,
+    "citationId": 48
+  },
+  {
+    "id": 25,
+    "meaningId": 9,
+    "citationId": 49
+  },
+  {
+    "id": 26,
+    "meaningId": 10,
+    "citationId": 50
+  },
+  {
+    "id": 27,
+    "meaningId": 11,
+    "citationId": 52
+  },
+  {
+    "id": 28,
+    "meaningId": 11,
+    "citationId": 53
+  },
+  {
+    "id": 29,
+    "meaningId": 11,
+    "citationId": 54
+  },
+  {
+    "id": 30,
+    "meaningId": 12,
+    "citationId": 55
+  },
+  {
+    "id": 31,
+    "meaningId": 13,
+    "citationId": 56
+  },
+  {
+    "id": 32,
+    "meaningId": 14,
+    "citationId": 57
+  },
+  {
+    "id": 33,
+    "meaningId": 15,
+    "citationId": 51
+  },
+  {
+    "id": 34,
+    "meaningId": 2,
+    "citationId": 11
+  },
+  {
+    "id": 35,
+    "meaningId": 2,
+    "citationId": 13
+  },
+  {
+    "id": 36,
+    "meaningId": 2,
+    "citationId": 69
+  },
+  {
+    "id": 37,
+    "meaningId": 2,
+    "citationId": 70
+  },
+  {
+    "id": 38,
+    "meaningId": 2,
+    "citationId": 71
+  },
+  {
+    "id": 39,
+    "meaningId": 16,
+    "citationId": 15
+  },
+  {
+    "id": 40,
+    "meaningId": 16,
+    "citationId": 58
+  },
+  {
+    "id": 41,
+    "meaningId": 16,
+    "citationId": 62
+  },
+  {
+    "id": 42,
+    "meaningId": 16,
+    "citationId": 75
+  },
+  {
+    "id": 43,
+    "meaningId": 16,
+    "citationId": 76
+  },
+  {
+    "id": 44,
+    "meaningId": 16,
+    "citationId": 77
+  },
+  {
+    "id": 45,
+    "meaningId": 16,
+    "citationId": 78
+  },
+  {
+    "id": 46,
+    "meaningId": 16,
+    "citationId": 94
+  },
+  {
+    "id": 47,
+    "meaningId": 17,
+    "citationId": 14
+  },
+  {
+    "id": 48,
+    "meaningId": 17,
+    "citationId": 29
+  },
+  {
+    "id": 49,
+    "meaningId": 17,
+    "citationId": 59
+  },
+  {
+    "id": 50,
+    "meaningId": 17,
+    "citationId": 60
+  },
+  {
+    "id": 51,
+    "meaningId": 17,
+    "citationId": 61
+  },
+  {
+    "id": 52,
+    "meaningId": 17,
+    "citationId": 63
+  },
+  {
+    "id": 53,
+    "meaningId": 17,
+    "citationId": 79
+  },
+  {
+    "id": 54,
+    "meaningId": 17,
+    "citationId": 80
+  },
+  {
+    "id": 55,
+    "meaningId": 17,
+    "citationId": 93
+  },
+  {
+    "id": 56,
+    "meaningId": 3,
+    "citationId": 9
+  },
+  {
+    "id": 57,
+    "meaningId": 3,
+    "citationId": 10
+  },
+  {
+    "id": 58,
+    "meaningId": 3,
+    "citationId": 12
+  },
+  {
+    "id": 59,
+    "meaningId": 3,
+    "citationId": 72
+  },
+  {
+    "id": 60,
+    "meaningId": 3,
+    "citationId": 73
+  },
+  {
+    "id": 61,
+    "meaningId": 3,
+    "citationId": 92
+  },
+  {
+    "id": 62,
+    "meaningId": 4,
+    "citationId": 1
+  },
+  {
+    "id": 63,
+    "meaningId": 4,
+    "citationId": 2
+  },
+  {
+    "id": 64,
+    "meaningId": 4,
+    "citationId": 3
+  },
+  {
+    "id": 65,
+    "meaningId": 4,
+    "citationId": 4
+  },
+  {
+    "id": 66,
+    "meaningId": 4,
+    "citationId": 5
+  },
+  {
+    "id": 67,
+    "meaningId": 4,
+    "citationId": 6
+  },
+  {
+    "id": 68,
+    "meaningId": 4,
+    "citationId": 7
+  },
+  {
+    "id": 69,
+    "meaningId": 4,
+    "citationId": 81
+  },
+  {
+    "id": 70,
+    "meaningId": 4,
+    "citationId": 82
+  },
+  {
+    "id": 71,
+    "meaningId": 4,
+    "citationId": 97
+  },
+  {
+    "id": 72,
+    "meaningId": 18,
+    "citationId": 28
+  },
+  {
+    "id": 73,
+    "meaningId": 18,
+    "citationId": 30
+  },
+  {
+    "id": 74,
+    "meaningId": 18,
+    "citationId": 32
+  },
+  {
+    "id": 75,
+    "meaningId": 18,
+    "citationId": 86
+  },
+  {
+    "id": 76,
+    "meaningId": 18,
+    "citationId": 87
+  },
+  {
+    "id": 77,
+    "meaningId": 18,
+    "citationId": 88
+  },
+  {
+    "id": 78,
+    "meaningId": 18,
+    "citationId": 89
+  },
+  {
+    "id": 79,
+    "meaningId": 18,
+    "citationId": 90
+  },
+  {
+    "id": 80,
+    "meaningId": 18,
+    "citationId": 96
+  },
+  {
+    "id": 81,
+    "meaningId": 19,
+    "citationId": 23
+  },
+  {
+    "id": 82,
+    "meaningId": 19,
+    "citationId": 24
+  },
+  {
+    "id": 83,
+    "meaningId": 19,
+    "citationId": 25
+  },
+  {
+    "id": 84,
+    "meaningId": 19,
+    "citationId": 26
+  },
+  {
+    "id": 85,
+    "meaningId": 19,
+    "citationId": 27
+  },
+  {
+    "id": 86,
+    "meaningId": 19,
+    "citationId": 31
+  },
+  {
+    "id": 87,
+    "meaningId": 19,
+    "citationId": 91
+  },
+  {
+    "id": 88,
+    "meaningId": 19,
+    "citationId": 95
+  },
+  {
+    "id": 89,
+    "meaningId": 20,
+    "citationId": 19
+  },
+  {
+    "id": 90,
+    "meaningId": 20,
+    "citationId": 20
+  },
+  {
+    "id": 91,
+    "meaningId": 20,
+    "citationId": 21
+  },
+  {
+    "id": 92,
+    "meaningId": 20,
+    "citationId": 22
+  },
+  {
+    "id": 93,
+    "meaningId": 20,
+    "citationId": 83
+  },
+  {
+    "id": 94,
+    "meaningId": 20,
+    "citationId": 84
+  },
+  {
+    "id": 95,
+    "meaningId": 21,
+    "citationId": 68
+  },
+  {
+    "id": 96,
+    "meaningId": 21,
+    "citationId": 74
+  },
+  {
+    "id": 97,
+    "meaningId": 21,
+    "citationId": 83
+  },
+  {
+    "id": 98,
+    "meaningId": 21,
+    "citationId": 84
+  },
+  {
+    "id": 99,
+    "meaningId": 21,
+    "citationId": 85
+  },
+  {
+    "id": 100,
+    "meaningId": 21,
+    "citationId": 104
+  },
+  {
+    "id": 101,
+    "meaningId": 22,
+    "citationId": 98
+  },
+  {
+    "id": 102,
+    "meaningId": 22,
+    "citationId": 99
+  },
+  {
+    "id": 103,
+    "meaningId": 22,
+    "citationId": 100
+  },
+  {
+    "id": 104,
+    "meaningId": 22,
+    "citationId": 101
+  },
+  {
+    "id": 105,
+    "meaningId": 22,
+    "citationId": 102
+  },
+  {
+    "id": 106,
+    "meaningId": 22,
+    "citationId": 103
+  },
+  {
+    "id": 107,
+    "meaningId": 22,
+    "citationId": 105
+  },
+  {
+    "id": 108,
+    "meaningId": 22,
+    "citationId": 106
+  },
+  {
+    "id": 109,
+    "meaningId": 22,
+    "citationId": 107
+  }
+]

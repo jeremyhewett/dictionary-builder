@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "shortDisplay": "OED-3",
+    "referenceText": "Simpson, John (ed.). 2000. <i>Oxford English Dictionary</i>. 3rd ed. Oxford: Oxford University Press."
+  },
+  {
+    "id": 2,
+    "shortDisplay": "AHD-5",
+    "referenceText": "Pickett, Joseph P. et al. (eds.). 2011. <i>The American Heritage Dictionary of the English Language.</i> 5th ed. Boston: Houghton Mifflin Harcourt."
+  },
+  {
+    "id": 3,
+    "shortDisplay": "Dollinger (2012a)",
+    "referenceText": "Dollinger, Stefan. 2012a. The Vancouver vernacular: The western Canada-U.S. border as a linguistic boundary. <i>World Englishes</i> 31(4)."
+  },
+  {
+    "id": 4,
+    "shortDisplay": "DPEIE",
+    "referenceText": "Pratt, T. K. 1988. <i>Dictionary of Prince Edward Island English.</i> Toronto: University of Toronto Press."
+  },
+  {
+    "id": 5,
+    "shortDisplay": "COD-2",
+    "referenceText": "Barber, Katherine (ed.). 2004. <i>Canadian Oxford Dictionary</i>. 2nd ed. Don Mills, ON: Oxford University Press."
+  },
+  {
+    "id": 6,
+    "shortDisplay": "Gage-5",
+    "referenceText": "Dodds de Wolf, Gaelan, Robert J. Gregg, Barbara P. Harris & Matthew H. Scargill (eds.). 1997. <i>Gage Canadian Dictionary</i>. Toronto: Gage Learning Corp."
+  },
+  {
+    "id": 7,
+    "shortDisplay": "Gage-1",
+    "referenceText": "Avis, Walter S., P. D. Drysdale, R.J. Gregg & M.H. Scargill (eds.). 1967. <i>Gage Dictionary of Canadian English: The Senior Dictionary</i>. Toronto: W.J. Gage Ltd."
+  },
+  {
+    "id": 8,
+    "shortDisplay": "Gage-3",
+    "referenceText": "Avis, Walter S., Patrick D. Drysdale, Robert J. Gregg, Victoria E. Newfeldt & Matthew H. Scargill (eds.). 1983. <i>Gage Canadian Dictionary</i>. Toronto: Gage Publishing Ltd."
+  },
+  {
+    "id": 9,
+    "shortDisplay": "<i>HBC Heritage</i>",
+    "referenceText": "Website for the <i>Hudson's Bay Company</i> history. http://www.hbcheritage.ca/hbcheritage/home"
+  },
+  {
+    "id": 10,
+    "shortDisplay": "ITP Nelson",
+    "referenceText": "Green, Susan, Jan Harkness, David Friend, Julia Keeler, Dan Liebman & Fraser Sutherland (eds.). 1997. <i>ITP Nelson Canadian Dictionary of the English Language: An Encyclopedic Reference</i>. Scarborough, ON: ITP Nelson."
+  },
+  {
+    "id": 11,
+    "shortDisplay": "Garth (2004)",
+    "referenceText": "Garth, Stevenson. 2004. <i>Unfulfilled Union: Canadian Federalism and National Unity</i>. Montreal: McGill-Queen's University Press."
+  },
+  {
+    "id": 12,
+    "shortDisplay": "Canadian Encyclopedia",
+    "referenceText": "<i>The Canadian Encyclopedia</i>. 1985--. Ed.-in-Chief James H. Marsh. www.thecanadianencyclopedia.com."
+  },
+  {
+    "id": 13,
+    "shortDisplay": "Dollinger (2015b)",
+    "referenceText": "Dollinger, Stefan. 2015b. <i>The Written Questionnaire in Social Dialectology: History, Theory, Practice.</i> IMPACT 40. Amsterdam/Philadelphia: Benjamins."
+  }
+]

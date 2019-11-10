@@ -1,0 +1,18 @@
+version: '3.2'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile.development
+    volumes:
+      - .:/var/www:cached
+      - /var/www/node_modules
+    command: npm start
+  db:
+    image: postgres:9.6
+    environment:
+      - POSTGRES_PASSWORD=password
+    network_mode: bridge
+    healthcheck:
+      test: exit 0

@@ -1,0 +1,138 @@
+[
+  {
+    "id": 1,
+    "entryId": 3,
+    "caption": "Image 2: Early ad in <i>The Ubyssey</i>, Feb. 23, 1926, p. 3. UBC Archives",
+    "path": "/uploads/entries/11343/2012.08.09_10.12.38_creamo_1926_pic.JPG",
+    "scale": 1,
+    "order": 2
+  },
+  {
+    "id": 2,
+    "entryId": 3,
+    "caption": "Image 1: Small container of <i>Creamo</i> by Dairyland. Photo: S. Dollinger",
+    "path": "/uploads/entries/11343/2012.08.09_10.34.56_creamo.JPG",
+    "scale": 0.5,
+    "order": 1
+  },
+  {
+    "id": 3,
+    "entryId": 3,
+    "caption": "Image 3: <i>Creamo</i> referring to a type of cereal. <i>Edmonton Bulletin</i>, 17 Feb. 1917, p. 15",
+    "path": "/uploads/entries/11343/2012.08.21_13.11.47_creamo_breakfast_food_1917.JPG",
+    "scale": 1,
+    "order": 3
+  },
+  {
+    "id": 4,
+    "entryId": 9,
+    "caption": "Chart 1: Internet Domain Search, 23 Aug. 2012",
+    "path": "/uploads/entries/11300/2012.09.11_15.34.26_anglophone_-_23_Aug_2012.JPG",
+    "scale": 1,
+    "order": null
+  },
+  {
+    "id": 5,
+    "entryId": 3,
+    "caption": "Chart 1: Regional Domain Search, 21 Aug. 2012",
+    "path": "/uploads/entries/11343/2012.09.10_14.17.45_creamo_-_10_Sep_2012.JPG",
+    "scale": 1,
+    "order": 4
+  },
+  {
+    "id": 6,
+    "entryId": 10,
+    "caption": "Chart 1: Internet Domain Search, 22 Jul. 2014",
+    "path": "/uploads/entries/11525/2014.07.22_11.42.51_francophone_N_22_jul_2014.JPG",
+    "scale": 1,
+    "order": 1
+  },
+  {
+    "id": 7,
+    "entryId": 6,
+    "caption": "A Montreal canoe",
+    "path": "/uploads/entries/5595/2013.05.23_14.18.05_image118.jpg",
+    "scale": 1,
+    "order": null
+  },
+  {
+    "id": 8,
+    "entryId": 2,
+    "caption": "Image 1: \"Shooting the Rapids\". 1879 painting by Frances Anne Hopkins (1838-1919). (Source: Wikimedia Commons).",
+    "path": "/uploads/entries/1514/2016.04.07_01.52.34_Shooting_the_Rapids_1879.jpg",
+    "scale": 1,
+    "order": 1
+  },
+  {
+    "id": 9,
+    "entryId": 11,
+    "caption": "Chart 1: Internet Domain Search, 16 Jan. 2014",
+    "path": "/uploads/entries/11594/2014.01.16_15.02.21_cereal_cream_-_16_Jan_2014.JPG",
+    "scale": 1,
+    "order": 1
+  },
+  {
+    "id": 10,
+    "entryId": 11,
+    "caption": "Chart 2: Regional Domain Search, 16 Jan. 2014",
+    "path": "/uploads/entries/11594/2014.01.22_09.42.34_cereal_cream_Reg_-_16_Jan_2014.JPG",
+    "scale": 1,
+    "order": 2
+  },
+  {
+    "id": 11,
+    "entryId": 12,
+    "caption": "Chart 1: Regional Domain Search, 16 Jan. 2014",
+    "path": "/uploads/entries/11779/2014.01.29_15.06.11_coffee_cream_Reg_-_16_Jan_2014.JPG",
+    "scale": 1,
+    "order": 1
+  },
+  {
+    "id": 12,
+    "entryId": 11,
+    "caption": "Chart 3: Distribution by Province, 16 Jan. 2014",
+    "path": "/uploads/entries/11594/2014.02.11_16.23.06_cream_-_Provincial_-_16_Jan_2014.JPG",
+    "scale": 1,
+    "order": 3
+  },
+  {
+    "id": 13,
+    "entryId": 3,
+    "caption": "Chart 2: Distribution by Province, 16 Jan. 2014",
+    "path": "/uploads/entries/11343/2014.02.11_16.35.18_cream_-_Provincial_-_16_Jan_2014.JPG",
+    "scale": 1,
+    "order": 5
+  },
+  {
+    "id": 14,
+    "entryId": 12,
+    "caption": "Chart 2: Distribution by Province, 16 Jan. 2014",
+    "path": "/uploads/entries/11779/2014.02.11_16.48.26_cream_-_Provincial_-_16_Jan_2014.JPG",
+    "scale": 1,
+    "order": 2
+  },
+  {
+    "id": 15,
+    "entryId": 12,
+    "caption": "Chart 3: Internet Domain Search, 21 Dec. 2015",
+    "path": "/uploads/entries/11779/2016.01.16_01.31.15_[BF]_coffee_cream_-_21_Dec_2015.JPG",
+    "scale": 1,
+    "order": 3
+  },
+  {
+    "id": 16,
+    "entryId": 13,
+    "caption": "Chart 1: Distribution by Province, 16 Jan. 2014",
+    "path": "/uploads/entries/12343/2016.06.03_14.25.26_cream_by_province.JPG",
+    "scale": 1,
+    "order": 1
+  },
+  {
+    "id": 17,
+    "entryId": 4,
+    "caption": "Image 1: A <i>canot du nord</i> in a 1944 painting by Adam Sherriff Scott, entitled \"Chief Trader Archibald McDonald Descending the Fraser, 1828\". Source: twitter.com. Photo: HBC Heritage",
+    "path": "/uploads/entries/1515/2016.07.04_06.00.09_birchbark_canoe.jpg",
+    "scale": 1,
+    "order": 1
+  }
+]

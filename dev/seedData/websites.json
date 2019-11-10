@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "citationId": 92,
+    "publishedDate": null,
+    "author": null,
+    "title": "New Horizons",
+    "place": "Sherbrooke, QC",
+    "url": "http://newhorizons.etsb.qc.ca/files/2014/02/summer-15.pdf",
+    "urlAccessedAt": "2015-11-03T08:00:00.000Z",
+    "evidence": "Cdn. immigrant service"
+  },
+  {
+    "id": 2,
+    "citationId": 97,
+    "publishedDate": null,
+    "author": null,
+    "title": "District of Summerland, BC, website",
+    "place": "Summerland, BC",
+    "url": "http://www.dist.summerland.bc.ca/departments/works/recycling.aspx",
+    "urlAccessedAt": "2016-06-03T07:00:00.000Z",
+    "evidence": "local government website"
+  },
+  {
+    "id": 3,
+    "citationId": 104,
+    "publishedDate": null,
+    "author": "BC Cancer Agency",
+    "title": "BC Cancer Guide: Easy to Chew, Easy to Swallow Food Ideas",
+    "place": "Vancouver, BC",
+    "url": "http://www.bccancer.bc.ca/nutrition-site/Documents/2015EasyToChewEasyToSwallowFoodIdeas_Apr23Small.pdf",
+    "urlAccessedAt": "2016-07-04T07:00:00.000Z",
+    "evidence": ".ca agency"
+  },
+  {
+    "id": 4,
+    "citationId": 105,
+    "publishedDate": "2005-01-28T08:00:00.000Z",
+    "author": "MacKinnon, Wayne",
+    "title": "gov.pe.ca",
+    "place": null,
+    "url": "http://www.gov.pe.ca/newsroom/index.php?number=news&dept=&newsnumber=3960",
+    "urlAccessedAt": "2016-07-12T07:00:00.000Z",
+    "evidence": "PEI government site"
+  }
+]

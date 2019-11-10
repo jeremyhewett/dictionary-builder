@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "meaningId": 1,
+    "entryId": 4
+  },
+  {
+    "id": 2,
+    "meaningId": 1,
+    "entryId": 5
+  },
+  {
+    "id": 3,
+    "meaningId": 1,
+    "entryId": 6
+  },
+  {
+    "id": 4,
+    "meaningId": 1,
+    "entryId": 7
+  },
+  {
+    "id": 5,
+    "meaningId": 1,
+    "entryId": 8
+  },
+  {
+    "id": 6,
+    "meaningId": 2,
+    "entryId": 9
+  },
+  {
+    "id": 7,
+    "meaningId": 2,
+    "entryId": 10
+  },
+  {
+    "id": 8,
+    "meaningId": 4,
+    "entryId": 11
+  },
+  {
+    "id": 9,
+    "meaningId": 4,
+    "entryId": 12
+  },
+  {
+    "id": 10,
+    "meaningId": 4,
+    "entryId": 13
+  }
+]
