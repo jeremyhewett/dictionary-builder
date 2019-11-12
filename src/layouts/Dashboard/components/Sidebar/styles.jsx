@@ -12,16 +12,16 @@ export default theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     height: '63px',
-    flexShrink: 0
+    flexShrink: 0,
+    padding: '5px 0'
   },
   logoLink: {
-    fontSize: 0
-  },
-  logoImage: {
-    cursor: 'pointer',
-    'max-width': '100%',
-    'max-height': '100%',
+    fontSize: 0,
+    height: '100%',
+    width: '100%',
     'border-radius': '5px',
+    backgroundImage: 'url("/images/logos/dchp_logo.png")',
+    backgroundSize: 'cover'
   },
   logoDivider: {
     marginBottom: theme.spacing(2)
