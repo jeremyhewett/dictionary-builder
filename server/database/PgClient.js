@@ -11,6 +11,7 @@ let pool = null;
 class PgClient {
   constructor() {
     if (!pool) {
+      console.log(`Connecting to ${JSON.stringify(config.postgres)}`);
       pool = new Pool(config.postgres);
       pool.on('error', e => {
         console.error(e);

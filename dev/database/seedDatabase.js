@@ -2,4 +2,7 @@ const Postgres = require('./Postgres');
 
 let database = new Postgres();
 
-database.seed();
+console.log('Seeding database...');
+database.seed()
+  .then(() => console.log('success'))
+  .catch(err => `failed\n${err}`);
