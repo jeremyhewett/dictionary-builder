@@ -17,6 +17,7 @@ class Users {
     this.router.get('/:id', auth.authorize('admin', this.bind(this.getUser)));
     this.router.post('/:id', auth.authorize('admin', this.bind(this.createUser)));
     this.router.put('/:id', auth.authorize('admin', this.bind(this.updateUser)));
+    this.router.delete('/:id', auth.authorize('admin', this.bind(this.deleteUser)));
   }
 
   bind(fn) {
@@ -52,15 +53,20 @@ class Users {
     let id = req.params.id;
     let user = await this._db.get(new User({ id }));
     let roles = await this._db.scan(new Role());
-    if (user && user.isActive) {
-      let userRoleLinks = await this._db.query(new UserRoleLink({ userId: user.id }));
-      user.roles = userRoleLinks
-        .map(link => roles.find(role => role.id === link.roleId))
-        .filter(role => role)
-        .map(role => role.name);
+    if (!user) {
+      res.sendStatus(404);
     }
 
+    let userRoleLinks = await this._db.query(new UserRoleLink({ userId: user.id }));
+    let userRoles = userRoleLinks
+      .map(link => roles.find(role => role.id === link.roleId))
+      .filter(role => role)
+      .map(role => role.name);
+
     let data = helpers.toJsonApi(user);
+    data.relationships = {
+      roles: userRoles
+    };
     res.json({ data });
   }
 
@@ -84,8 +90,27 @@ class Users {
   async updateUser(req, res) {
     let { data } = req.body;
     let user = Object.assign(new User(data.attributes), { id: req.params.id });
+    if (data.attributes.password) {
+      user.passwordHash = await bcrypt.hash(data.attributes.password, 10);
+    }
     user = await this._db.update(new User({ id: req.params.id }), user);
-    res.json({ data: helpers.toJsonApi(user) });
+
+    if (data.relationships && data.relationships.roles) {
+      let roles = await this._db.scan(new Role());
+      let roleIds = roles.filter(role => data.relationships.roles.includes(role.name))
+        .map(role => role.id);
+      await this._db.delete(new UserRoleLink({ userId: user.id }));
+      await Promise.all(roleIds.map(roleId => this._db.create(new UserRoleLink({ roleId, userId: user.id }))));
+    }
+
+    res.json({ data });
+  }
+
+  async deleteUser(req, res) {
+    let id = req.params.id;
+    await this._db.delete(new UserRoleLink( { userId: id }));
+    await this._db.delete(new User( { id }));
+    res.json({ data: {} });
   }
 }
 

@@ -55,6 +55,12 @@ class UserList extends Component {
     this.setState({ selectedUsers });
   };
 
+  async deleteUsers() {
+    let selectedUsers = this.state.selectedUsers.map(userId => this.state.users.find(user => user.id === userId));
+    await Promise.all(selectedUsers.map(user => service.deleteUser(user)));
+    this.getUsers();
+  }
+
   renderUsers() {
     const { classes } = this.props;
     const { isLoading, users, error } = this.state;
@@ -87,7 +93,7 @@ class UserList extends Component {
     return (
       <DashboardLayout title="Users">
         <div className={classes.root}>
-          <UsersToolbar selectedUsers={selectedUsers} />
+          <UsersToolbar selectedUsers={selectedUsers} onDeleteUsers={this.deleteUsers.bind(this)}/>
           <div className={classes.content}>{this.renderUsers()}</div>
         </div>
       </DashboardLayout>

@@ -38,6 +38,7 @@ export default class Routes extends Component {
         <Route component={Dashboard} exact path="/dashboard"/>
         <Route component={UserList} exact path="/users"/>
         <Route component={EditUser} exact path="/users/new"/>
+        <Route component={EditUser} exact path="/users/:userId/edit"/>
         <Route component={ProductList} exact path="/products"/>
         <Route component={Typography} exact path="/typography"/>
         <Route component={Icons} exact path="/icons"/>

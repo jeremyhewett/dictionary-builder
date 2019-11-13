@@ -28,7 +28,7 @@ class UsersToolbar extends Component {
         <div className={classes.row}>
           <span className={classes.spacer} />
           {selectedUsers.length > 0 && (
-            <IconButton className={classes.deleteButton} onClick={this.handleDeleteUsers}>
+            <IconButton className={classes.deleteButton} onClick={this.props.onDeleteUsers}>
               <DeleteIcon />
             </IconButton>
           )}

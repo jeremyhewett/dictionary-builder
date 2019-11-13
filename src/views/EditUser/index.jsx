@@ -86,19 +86,13 @@ class EditUser extends Component {
 
   setRole(role, enabled) {
     let user = this.state.user;
-    console.log(`enabled ${hasRole}`);
-    console.log(`Before: ${JSON.stringify(user.relationships.roles)}`);
     let hasRole = user.relationships.roles.includes(role);
-    console.log(`Has role: ${hasRole}`);
     if (hasRole !== enabled) {
       if (enabled) {
-        console.log(`Adding role : ${role}`);
         user.relationships.roles = user.relationships.roles.concat([role]);
       } else {
-        console.log(`Removing role : ${role}`);
         user.relationships.roles = user.relationships.roles.filter(r => r !== role);
       }
-      console.log(`After: ${JSON.stringify(user.relationships.roles)}`);
       this.setState({ user });
     }
   }
@@ -190,27 +184,30 @@ class EditUser extends Component {
           <form autoComplete="off" noValidate>
             <div className={classes.checkboxField}>
               <Checkbox
-                value={user.relationships.roles.includes('admin')}
+                checked={user.relationships.roles.includes('admin')}
                 onChange={event => this.setRole('admin', event.target.checked)}
                 color="primary"
+                id="admin-role-input"
               />
-              <div><Typography variant="body1">Admin</Typography></div>
+              <label for="admin-role-input"><Typography variant="body1">Admin</Typography></label>
             </div>
             <div className={classes.checkboxField}>
               <Checkbox
-                value={user.relationships.roles.includes('editor')}
+                checked={user.relationships.roles.includes('editor')}
                 onChange={event => this.setRole('editor', event.target.checked)}
                 color="primary"
+                id="editor-role-input"
               />
-              <div><Typography variant="body1">Editor</Typography></div>
+              <label for="editor-role-input"><Typography variant="body1">Editor</Typography></label>
             </div>
             <div className={classes.checkboxField}>
               <Checkbox
-                value={user.relationships.roles.includes('reviewer')}
+                checked={user.relationships.roles.includes('reviewer')}
                 onChange={event => this.setRole('reviewer', event.target.checked)}
                 color="primary"
+                id="reviewer-role-input"
               />
-              <div><Typography variant="body1">Reviewer</Typography></div>
+              <label for="reviewer-role-input"><Typography variant="body1">Reviewer</Typography></label>
             </div>
           </form>
         </PortletContent>

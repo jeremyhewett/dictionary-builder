@@ -16,4 +16,8 @@ const updateUser = async (user) => {
   return await api.put(`users/${user.id}`, user);
 };
 
-export default { getUsers, getUser, createUser, updateUser };
+const deleteUser = async (user) => {
+  return await api.delete(`users/${user.id}`);
+};
+
+export default { getUsers, getUser, createUser, updateUser, deleteUser };

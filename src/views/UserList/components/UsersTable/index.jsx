@@ -156,7 +156,7 @@ class UsersTable extends Component {
                           >
                             {getInitials(`${user.attributes.firstName} ${user.attributes.lastName}`)}
                           </Avatar>
-                          <Link to="#">
+                          <Link to={`/users/${user.id}/edit`}>
                             <Typography
                               className={classes.nameText}
                               variant="body1"

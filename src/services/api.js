@@ -64,4 +64,13 @@ const post = async (url, data = null, options = {}) => {
   return await request(url, _.defaultsDeep({}, options, defaultOptions));
 };
 
-export default { get, put, post };
+const _delete = async(url, options = {}) => {
+  const defaultOptions = {
+    method: 'DELETE'
+  };
+
+  return await request(url, _.defaultsDeep({}, options, defaultOptions));
+};
+
+
+export default { get, put, post, delete: _delete };
