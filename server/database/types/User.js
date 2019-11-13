@@ -7,6 +7,7 @@ class User {
     this.lastName = entity.lastName;
     this.email = entity.email;
     this.passwordHash = entity.passwordHash;
+    this.createdAt = entity.createdAt;
   }
 }
 

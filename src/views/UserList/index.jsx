@@ -1,24 +1,10 @@
 import React, { Component } from 'react';
-
-// Externals
 import PropTypes from 'prop-types';
-
-// Material helpers
 import { withStyles } from '@material-ui/core';
-
-// Material components
 import { CircularProgress, Typography } from '@material-ui/core';
-
-// Shared layouts
 import { Dashboard as DashboardLayout } from 'layouts';
-
-// Shared services
-import { getUsers } from 'services/user';
-
-// Custom components
+import service from 'services/users';
 import { UsersToolbar, UsersTable } from './components';
-
-// Component styles
 import styles from './style';
 
 class UserList extends Component {
@@ -38,7 +24,7 @@ class UserList extends Component {
 
       const { limit } = this.state;
 
-      const { users } = await getUsers(limit);
+      const users = await service.getUsers(0, limit);
 
       if (this.signal) {
         this.setState({
@@ -90,11 +76,7 @@ class UserList extends Component {
     }
 
     return (
-      <UsersTable
-        //
-        onSelect={this.handleSelect}
-        users={users}
-      />
+      <UsersTable onSelect={this.handleSelect} users={users} />
     );
   }
 

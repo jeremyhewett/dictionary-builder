@@ -114,8 +114,8 @@ class UsersTable extends Component {
                     Name
                   </TableCell>
                   <TableCell align="left">ID</TableCell>
-                  <TableCell align="left">State</TableCell>
-                  <TableCell align="left">Phone</TableCell>
+                  <TableCell align="left">Email</TableCell>
+                  <TableCell align="left">Role</TableCell>
                   <TableCell align="left">Registration date</TableCell>
                 </TableRow>
               </TableHead>
@@ -152,16 +152,16 @@ class UsersTable extends Component {
                           />
                           <Avatar
                             className={classes.avatar}
-                            src={user.avatarUrl}
+                            src={user.attributes.avatarUrl}
                           >
-                            {getInitials(user.name)}
+                            {getInitials(`${user.attributes.firstName} ${user.attributes.lastName}`)}
                           </Avatar>
                           <Link to="#">
                             <Typography
                               className={classes.nameText}
                               variant="body1"
                             >
-                              {user.name}
+                              {`${user.attributes.firstName} ${user.attributes.lastName}`}
                             </Typography>
                           </Link>
                         </div>
@@ -170,13 +170,13 @@ class UsersTable extends Component {
                         {user.id}
                       </TableCell>
                       <TableCell className={classes.tableCell}>
-                        {user.address.state}
+                        {user.attributes.email}
                       </TableCell>
                       <TableCell className={classes.tableCell}>
-                        {user.phone}
+                        {user.attributes.isActive ? user.relationships.roles.join(', ') : 'Deactivated'}
                       </TableCell>
                       <TableCell className={classes.tableCell}>
-                        {moment(user.createdAt).format('DD/MM/YYYY')}
+                        {user.attributes.createdAt && moment(user.attributes.createdAt).format('DD MMM YYYY')}
                       </TableCell>
                     </TableRow>
                   ))}

@@ -2,6 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const Auth = require('./auth/Auth');
+const Users = require('./users/Users');
 const Content = require('./content/Content');
 const Entries = require('./entries/Entries');
 const Entities = require('./entities/Entities');
@@ -14,6 +15,7 @@ const app = (config = {}) => {
   app.use('/api/*', bodyParser.json());
   app.use('/api/*', new Auth(config).authenticator);
   app.use('/api/auth', new Auth(config).router);
+  app.use('/api/users', new Users(config).router);
   app.use('/api/content', new Content(config).router);
   app.use('/api/entries', new Entries(config).router);
   app.use('/api/headwords', new Headwords(config).router);

@@ -5,6 +5,7 @@
     "firstName": "Jeremy",
     "lastName": "Hewett",
     "email": "j@g.com",
-    "passwordHash": "$2b$10$PgyeJ/c0RuzH17et4zsc0uGysIgw35pW8wgPZodqbrqOauMfvu7hq"
+    "passwordHash": "$2b$10$PgyeJ/c0RuzH17et4zsc0uGysIgw35pW8wgPZodqbrqOauMfvu7hq",
+    "createdAt": "2019-10-30 19:42:36"
   }
 ]
