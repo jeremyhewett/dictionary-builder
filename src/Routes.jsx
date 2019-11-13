@@ -12,6 +12,7 @@ import Citation from './views/Citation';
 import Dashboard from './views/Dashboard';
 import ProductList from './views/ProductList';
 import UserList from './views/UserList';
+import EditUser from './views/EditUser';
 import Typography from './views/Typography';
 import Icons from './views/Icons';
 import Account from './views/Account';
@@ -36,6 +37,7 @@ export default class Routes extends Component {
         <Route component={Citation} exact path="/citations/:citationId"/>
         <Route component={Dashboard} exact path="/dashboard"/>
         <Route component={UserList} exact path="/users"/>
+        <Route component={EditUser} exact path="/users/new"/>
         <Route component={ProductList} exact path="/products"/>
         <Route component={Typography} exact path="/typography"/>
         <Route component={Icons} exact path="/icons"/>

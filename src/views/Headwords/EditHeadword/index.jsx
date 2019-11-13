@@ -81,12 +81,9 @@ class EditHeadword extends Component {
 
   async save() {
     try {
-      let headword;
-      if (this.state.isNew) {
-        headword = await service.createHeadword(this.state.headword);
-      } else {
-        headword = await service.updateHeadword(this.state.headword);
-      }
+      let headword = this.state.isNew ?
+        await service.createHeadword(this.state.headword) :
+        await service.updateHeadword(this.state.headword);
       this.props.history.push(`/headwords/${headword.id}`);
     } catch(err) {
       alert(`Error: ${err}`);

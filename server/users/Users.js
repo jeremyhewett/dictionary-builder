@@ -1,5 +1,6 @@
-const _ = require('lodash');
 const express = require('express');
+const bcrypt = require('bcrypt');
+const moment = require('moment');
 const helpers = require('../helpers');
 const Database = require('../database/Database');
 const Auth = require('../auth/Auth');
@@ -50,6 +51,15 @@ class Users {
   async getUser(req, res) {
     let id = req.params.id;
     let user = await this._db.get(new User({ id }));
+    let roles = await this._db.scan(new Role());
+    if (user && user.isActive) {
+      let userRoleLinks = await this._db.query(new UserRoleLink({ userId: user.id }));
+      user.roles = userRoleLinks
+        .map(link => roles.find(role => role.id === link.roleId))
+        .filter(role => role)
+        .map(role => role.name);
+    }
+
     let data = helpers.toJsonApi(user);
     res.json({ data });
   }
@@ -57,8 +67,18 @@ class Users {
   async createUser(req, res) {
     let { data } = req.body;
     let user = Object.assign(new User(data.attributes));
+    user.passwordHash = await bcrypt.hash(data.attributes.password, 10);
+    user.createdAt = moment().toJSON();
     user = await this._db.create(user);
-    res.json({ data: helpers.toJsonApi(user) });
+
+    if (data.relationships && data.relationships.roles) {
+      let roles = await this._db.scan(new Role());
+      let roleIds = roles.filter(role => data.relationships.roles.includes(role.name))
+        .map(role => role.id);
+      await Promise.all(roleIds.map(roleId => this._db.create(new UserRoleLink({ roleId, userId: user.id }))));
+    }
+
+    res.json({ data });
   }
 
   async updateUser(req, res) {

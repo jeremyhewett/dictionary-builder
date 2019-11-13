@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS users (
   last_name character varying COLLATE pg_catalog."default" NOT NULL CHECK (last_name <> ''),
   email character varying COLLATE pg_catalog."default" UNIQUE NOT NULL CHECK (email <> ''),
   password_hash character varying COLLATE pg_catalog."default" NOT NULL CHECK (password_hash <> ''),
-  created_at timestamp
+  created_at timestamp NOT NULL
 );
 
 CREATE INDEX idx_users_email
