@@ -21,7 +21,7 @@ export default theme => ({
   progressWrapper: {
     marginTop: theme.spacing(2)
   },
-  uploadButton: {
+  actionButton: {
     marginRight: theme.spacing(2)
   }
 });

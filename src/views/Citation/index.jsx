@@ -2,9 +2,11 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import { CircularProgress, Grid, Typography, TextField, Button, InputLabel, Paper, Tab, Tabs } from '@material-ui/core';
 import { Dashboard as DashboardLayout } from 'layouts';
 import service from 'services/citations';
+import headwordService from 'services/headwords';
 import ReactQuill from 'react-quill';
 
 import {
@@ -39,12 +41,19 @@ class Citation extends Component {
     try {
       this.setState({ isLoading: true });
 
-      const citation = await service.getCitation(this.props.match.params.citationId);
+      const [citation, headwords] = await Promise.all([
+        service.getCitation(this.props.match.params.citationId),
+        headwordService.getHeadwords()
+      ]);
+
+      let headwordOptions = headwords.map(hw => ({ label: hw.attributes.headword, headword: hw }));
 
       if (this.signal) {
         this.setState({
           isLoading: false,
-          citation
+          citation,
+          headwordOptions,
+          selectedHeadwordOption: headwordOptions.find(opt => opt.headword.id === citation.attributes.headwordId)
         });
       }
     } catch (error) {
@@ -104,14 +113,42 @@ class Citation extends Component {
     }
   }
 
+  selectHeadword(option) {
+    this.setState({ selectedHeadwordOption: option });
+    this.onChange('attributes.headwordId', option && option.headword.id);
+  }
+
+  consolidateHeadword() {
+    if ((this.headword || null) !== (this.state.selectedHeadwordOption && this.state.selectedHeadwordOption.label)) {
+      let option = this.state.headwordOptions.find(opt => opt.label === this.headword);
+      if (option) {
+        this.selectHeadword(option);
+      } else {
+        this.onChange('attributes.headwordId', null);
+      }
+    }
+  }
+
   async save() {
+    if (!this.state.citation.attributes.headwordId) {
+      if (!window.confirm(`Create new headword "${this.headword}"?`)) {
+        alert('Citation not saved');
+        return;
+      }
+      let headword = await headwordService.createHeadword({
+        type: 'headwords',
+        attributes: {
+          headword: this.headword
+        },
+      });
+      this.state.citation.attributes.headwordId = headword.id;
+    }
     await service.updateCitation(this.state.citation);
   }
 
   renderCitationDetails() {
     const { classes } = this.props;
-    const { citation } = this.state;
-    const headword = citation.relationships.headword;
+    const { citation, headwordOptions, selectedHeadwordOption } = this.state;
 
     return (
       <Portlet>
@@ -124,14 +161,24 @@ class Citation extends Component {
             noValidate
           >
             <div className={classes.field}>
-              <TextField
+              <Autocomplete
+                options={headwordOptions}
                 className={classes.textField}
-                label="Headword"
-                margin="dense"
-                required
-                value={headword.attributes.headword}
-                variant="outlined"
-                onChange={(event) => this.onChange('relationships.headword.attributes.headword', event.target.value)}
+                freeSolo={true}
+                getOptionLabel={option => option.label}
+                value={selectedHeadwordOption}
+                onChange={(event, value) => this.selectHeadword(value)}
+                onInputChange={(event, value) => this.headword = value}
+                onBlur={() => this.consolidateHeadword(this.headword)}
+                renderInput={params => (
+                  <TextField
+                    {...params}
+                    label="Headword"
+                    margin="dense"
+                    required
+                    variant="outlined"
+                    fullWidth />
+                )}
               />
             </div>
             <div className={classes.field}>

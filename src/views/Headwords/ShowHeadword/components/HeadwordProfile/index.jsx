@@ -20,6 +20,10 @@ class HeadwordProfile extends Component {
     this.props.history.push(`${this.props.headword.id}/edit`);
   }
 
+  addCitation() {
+    this.props.history.push(`citations/new?headwordId=${this.props.headword.id}`);
+  }
+
   render() {
     const { classes, className, headword, isEditable, staticContext /*to avoid react error*/, ...rest } = this.props;
 
@@ -47,12 +51,17 @@ class HeadwordProfile extends Component {
         </PortletContent>
         <PortletFooter>
           {isEditable ?
-            <Button onClick={this.goToEdit.bind(this)} className={classes.uploadButton} color="primary" variant="text">
+            <Button onClick={this.goToEdit.bind(this)} className={classes.actionButton} color="primary" variant="text">
               Edit
             </Button> : ''
           }
+          {isEditable ?
+            <Button onClick={this.addCitation.bind(this)} className={classes.actionButton} color="primary" variant="text">
+              Add Citation
+            </Button> : ''
+          }
           {this.hasEntry ?
-            <Button onClick={this.goToEntry.bind(this)} className={classes.uploadButton} color="primary" variant="text">
+            <Button onClick={this.goToEntry.bind(this)} className={classes.actionButton} color="primary" variant="text">
               Go To Entry
             </Button> : ''
           }

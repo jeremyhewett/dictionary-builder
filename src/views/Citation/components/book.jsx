@@ -40,7 +40,7 @@ class Book extends Component {
   }
 
   fromViewValue(value) {
-    return value === '' ? null : value;
+    return value || null;
   }
 
   render() {
@@ -53,7 +53,7 @@ class Book extends Component {
             label="Title"
             margin="dense"
             required
-            value={book.attributes.title}
+            value={book.attributes.title || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.title', event.target.value)}
           />
@@ -61,7 +61,7 @@ class Book extends Component {
             className={classes.textField}
             label="Author"
             margin="dense"
-            value={book.attributes.author}
+            value={book.attributes.author || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.author', event.target.value)}
           />
@@ -69,7 +69,7 @@ class Book extends Component {
             className={classes.textField}
             label="Year published"
             margin="dense"
-            value={book.attributes.yearPublished}
+            value={book.attributes.yearPublished || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.yearPublished', event.target.value)}
           />
@@ -77,7 +77,7 @@ class Book extends Component {
             className={classes.textField}
             label="Year composed"
             margin="dense"
-            value={book.attributes.yearComposed}
+            value={book.attributes.yearComposed || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.yearComposed', event.target.value)}
           />
@@ -85,7 +85,7 @@ class Book extends Component {
             className={classes.textField}
             label="Publisher"
             margin="dense"
-            value={book.attributes.publisher}
+            value={book.attributes.publisher || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.publisher', event.target.value)}
           />
@@ -93,7 +93,7 @@ class Book extends Component {
             className={classes.textField}
             label="Place"
             margin="dense"
-            value={book.attributes.place}
+            value={book.attributes.place || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.place', event.target.value)}
           />
@@ -101,7 +101,7 @@ class Book extends Component {
             className={classes.textField}
             label="Editor"
             margin="dense"
-            value={book.attributes.editor}
+            value={book.attributes.editor || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.editor', event.target.value)}
           />
@@ -109,7 +109,7 @@ class Book extends Component {
             className={classes.textField}
             label="Url"
             margin="dense"
-            value={book.attributes.url}
+            value={book.attributes.url || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.url', event.target.value)}
           />
@@ -117,7 +117,7 @@ class Book extends Component {
             className={classes.textField}
             label="Url Accessed Date"
             margin="dense"
-            value={book.attributes.urlAccessedAt}
+            value={book.attributes.urlAccessedAt || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.urlAccessedAt', event.target.value)}
           />
@@ -125,7 +125,7 @@ class Book extends Component {
             className={classes.textField}
             label="Page/Column"
             margin="dense"
-            value={book.attributes.page}
+            value={book.attributes.page || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.page', event.target.value)}
           />

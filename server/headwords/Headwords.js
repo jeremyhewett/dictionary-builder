@@ -14,7 +14,7 @@ class Headwords {
     this.router = express.Router();
     this.router.get('/', auth.authorize('editor', this.bind(this.getHeadwords)));
     this.router.get('/:id', auth.authorize('editor', this.bind(this.getHeadword)));
-    this.router.post('/:id', auth.authorize('editor', this.bind(this.createHeadword)));
+    this.router.post('/', auth.authorize('editor', this.bind(this.createHeadword)));
     this.router.put('/:id', auth.authorize('editor', this.bind(this.updateHeadword)));
   }
 

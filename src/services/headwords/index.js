@@ -9,7 +9,7 @@ const getHeadword = async (headwordId) => {
 };
 
 const createHeadword = async (headword) => {
-  return await api.post(`headwords/${headword.id}`, headword);
+  return await api.post(`headwords`, headword);
 };
 
 const updateHeadword = async (headword) => {

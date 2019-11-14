@@ -53,7 +53,7 @@ class Utterance extends Component {
             label="Uttered by"
             margin="dense"
             required
-            value={utterance.attributes.utteredBy}
+            value={utterance.attributes.utteredBy || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.utteredBy', event.target.value)}
           />
@@ -61,7 +61,7 @@ class Utterance extends Component {
             className={classes.textField}
             label="Date of utterance"
             margin="dense"
-            value={utterance.attributes.utteranceDate}
+            value={utterance.attributes.utteranceDate || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.utteranceDate', event.target.value)}
           />
@@ -69,7 +69,7 @@ class Utterance extends Component {
             className={classes.textField}
             label="Time of utterance"
             margin="dense"
-            value={utterance.attributes.utteranceTime}
+            value={utterance.attributes.utteranceTime || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.utteranceTime', event.target.value)}
           />
@@ -77,7 +77,7 @@ class Utterance extends Component {
             className={classes.textField}
             label="Year recorded"
             margin="dense"
-            value={utterance.attributes.yearRecorded}
+            value={utterance.attributes.yearRecorded || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.yearRecorded', event.target.value)}
           />
@@ -85,7 +85,7 @@ class Utterance extends Component {
             className={classes.textField}
             label="Media"
             margin="dense"
-            value={utterance.attributes.media}
+            value={utterance.attributes.media || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.media', event.target.value)}
           />
@@ -93,7 +93,7 @@ class Utterance extends Component {
             className={classes.textField}
             label="Broadcast"
             margin="dense"
-            value={utterance.attributes.broadcast}
+            value={utterance.attributes.broadcast || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.broadcast', event.target.value)}
           />
@@ -101,7 +101,7 @@ class Utterance extends Component {
             className={classes.textField}
             label="Place"
             margin="dense"
-            value={utterance.attributes.place}
+            value={utterance.attributes.place || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.place', event.target.value)}
           />
@@ -109,7 +109,7 @@ class Utterance extends Component {
             className={classes.textField}
             label="Witnessed by"
             margin="dense"
-            value={utterance.attributes.witness}
+            value={utterance.attributes.witness || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.witness', event.target.value)}
           />
@@ -117,7 +117,7 @@ class Utterance extends Component {
             className={classes.textField}
             label="Url"
             margin="dense"
-            value={utterance.attributes.url}
+            value={utterance.attributes.url || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.url', event.target.value)}
           />
@@ -125,7 +125,7 @@ class Utterance extends Component {
             className={classes.textField}
             label="Url accessed date"
             margin="dense"
-            value={utterance.attributes.urlAccessedAt}
+            value={utterance.attributes.urlAccessedAt || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.urlAccessedAt', event.target.value)}
           />

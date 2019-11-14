@@ -64,10 +64,6 @@ class Citations {
   async updateCitation(req, res) {
     let { data } = req.body;
     let citation = Object.assign(new Citation(data.attributes), { id: req.params.id });
-    if (!citation.headwordId && data.attributes.headword) {
-      let headword = await this._db.create(new Headword({ headword: data.attributes.headword }));
-      citation.headwordId = headword.id;
-    }
 
     switch(data.attributes.sourceType) {
       case 'books':

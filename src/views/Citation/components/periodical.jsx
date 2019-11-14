@@ -40,7 +40,7 @@ class Periodical extends Component {
   }
 
   fromViewValue(value) {
-    return value === '' ? null : value;
+    return value || null;
   }
 
   render() {
@@ -53,7 +53,7 @@ class Periodical extends Component {
             label="Title"
             margin="dense"
             required
-            value={periodical.attributes.title}
+            value={periodical.attributes.title || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.title', event.target.value)}
           />
@@ -61,7 +61,7 @@ class Periodical extends Component {
             className={classes.textField}
             label="Author"
             margin="dense"
-            value={periodical.attributes.author}
+            value={periodical.attributes.author || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.author', event.target.value)}
           />
@@ -69,7 +69,7 @@ class Periodical extends Component {
             className={classes.textField}
             label="Volume/Issue"
             margin="dense"
-            value={periodical.attributes.issue}
+            value={periodical.attributes.issue || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.issue', event.target.value)}
           />
@@ -77,7 +77,7 @@ class Periodical extends Component {
             className={classes.textField}
             label="Date"
             margin="dense"
-            value={periodical.attributes.issueDate}
+            value={periodical.attributes.issueDate || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.issueDate', event.target.value)}
           />
@@ -85,7 +85,7 @@ class Periodical extends Component {
             className={classes.textField}
             label="Place"
             margin="dense"
-            value={periodical.attributes.place}
+            value={periodical.attributes.place || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.place', event.target.value)}
           />
@@ -93,7 +93,7 @@ class Periodical extends Component {
             className={classes.textField}
             label="Url"
             margin="dense"
-            value={periodical.attributes.url}
+            value={periodical.attributes.url || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.url', event.target.value)}
           />
@@ -101,7 +101,7 @@ class Periodical extends Component {
             className={classes.textField}
             label="Url Accessed Date"
             margin="dense"
-            value={periodical.attributes.urlAccessedAt}
+            value={periodical.attributes.urlAccessedAt || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.urlAccessedAt', event.target.value)}
           />
@@ -109,7 +109,7 @@ class Periodical extends Component {
             className={classes.textField}
             label="Page/Column"
             margin="dense"
-            value={periodical.attributes.page}
+            value={periodical.attributes.page || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.page', event.target.value)}
           />

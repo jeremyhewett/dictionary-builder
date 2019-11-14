@@ -17,7 +17,13 @@ export default theme => ({
   textField: {
     width: '420px',
     maxWidth: '100%',
-    marginRight: theme.spacing(3)
+    marginRight: theme.spacing(3),
+    '& .MuiAutocomplete-inputRoot.MuiInputBase-marginDense': {
+      padding: 0,
+      '& .MuiAutocomplete-input': {
+        padding: '10.5px 14px'
+      }
+    }
   },
   editor: {
     '& .ql-toolbar': {

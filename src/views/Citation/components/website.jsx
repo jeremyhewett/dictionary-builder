@@ -53,7 +53,7 @@ class Website extends Component {
             label="Title"
             margin="dense"
             required
-            value={website.attributes.title}
+            value={website.attributes.title || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.title', event.target.value)}
           />
@@ -61,7 +61,7 @@ class Website extends Component {
             className={classes.textField}
             label="Author"
             margin="dense"
-            value={website.attributes.author}
+            value={website.attributes.author || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.author', event.target.value)}
           />
@@ -69,7 +69,7 @@ class Website extends Component {
             className={classes.textField}
             label="Published date"
             margin="dense"
-            value={website.attributes.publishedDate}
+            value={website.attributes.publishedDate || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.publishedDate', event.target.value)}
           />
@@ -77,7 +77,7 @@ class Website extends Component {
             className={classes.textField}
             label="Place"
             margin="dense"
-            value={website.attributes.place}
+            value={website.attributes.place || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.place', event.target.value)}
           />
@@ -85,7 +85,7 @@ class Website extends Component {
             className={classes.textField}
             label="Url"
             margin="dense"
-            value={website.attributes.url}
+            value={website.attributes.url || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.url', event.target.value)}
           />
@@ -93,7 +93,7 @@ class Website extends Component {
             className={classes.textField}
             label="Url Accessed Date"
             margin="dense"
-            value={website.attributes.urlAccessedAt}
+            value={website.attributes.urlAccessedAt || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.urlAccessedAt', event.target.value)}
           />
@@ -101,7 +101,7 @@ class Website extends Component {
             className={classes.textField}
             label="Evidence of usage"
             margin="dense"
-            value={website.attributes.evidence}
+            value={website.attributes.evidence || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.evidence', event.target.value)}
           />
