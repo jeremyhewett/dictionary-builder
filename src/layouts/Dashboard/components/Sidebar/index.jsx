@@ -1,14 +1,8 @@
 import React, {Component} from 'react';
 import {Link, NavLink} from 'react-router-dom';
-
-// Externals
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-
-// Material helpers
 import {withStyles} from '@material-ui/core';
-
-// Material components
 import {
   //Avatar,
   Divider,
@@ -19,8 +13,6 @@ import {
   //ListSubheader,
   //Typography
 } from '@material-ui/core';
-
-// Material icons
 import {
   HomeOutlined as HomeIcon,
   DashboardOutlined as DashboardIcon,
@@ -34,12 +26,39 @@ import {
   SettingsOutlined as SettingsIcon
 } from '@material-ui/icons';
 
-// Component styles
+import { state as appState } from 'App';
+
 import styles from './styles';
 
 const ReflessNavLink = React.forwardRef((props, ref) => (<NavLink {...props}/>));
 
 class Sidebar extends Component {
+  state = {
+    user: appState.get('user')
+  };
+
+  componentWillMount() {
+    this._unwatch = appState.watch('user', user => {
+      this.setState({ user });
+    });
+  }
+
+  componentWillUnmount() {
+    this._unwatch();
+  }
+
+  isAdmin() {
+    return this.state.user && this.state.user.attributes.roles.includes('admin');
+  }
+
+  isEditor() {
+    return this.state.user && this.state.user.attributes.roles.includes('editor');
+  }
+
+  isReviewer() {
+    return this.state.user && this.state.user.attributes.roles.includes('reviewer');
+  }
+
   render() {
     const {classes, className} = this.props;
 
@@ -105,7 +124,7 @@ class Sidebar extends Component {
               primary="Entries"
             />
           </ListItem>
-          <ListItem
+          {this.isEditor() ? <ListItem
             activeClassName={classes.activeListItem}
             className={classes.listItem}
             component={ReflessNavLink}
@@ -118,8 +137,8 @@ class Sidebar extends Component {
               classes={{primary: classes.listItemText}}
               primary="Headwords"
             />
-          </ListItem>
-          <ListItem
+          </ListItem> : ''}
+          {/*<ListItem
             activeClassName={classes.activeListItem}
             className={classes.listItem}
             component={ReflessNavLink}
@@ -132,8 +151,8 @@ class Sidebar extends Component {
               classes={{primary: classes.listItemText}}
               primary="Dashboard"
             />
-          </ListItem>
-          <ListItem
+          </ListItem>*/}
+          {this.isAdmin() ? <ListItem
             activeClassName={classes.activeListItem}
             className={classes.listItem}
             component={ReflessNavLink}
@@ -146,8 +165,8 @@ class Sidebar extends Component {
               classes={{primary: classes.listItemText}}
               primary="Users"
             />
-          </ListItem>
-          <ListItem
+          </ListItem> : ''}
+          {/*<ListItem
             activeClassName={classes.activeListItem}
             className={classes.listItem}
             component={ReflessNavLink}
@@ -160,8 +179,8 @@ class Sidebar extends Component {
               classes={{primary: classes.listItemText}}
               primary="Products"
             />
-          </ListItem>
-          <ListItem
+          </ListItem>*/}
+          {/*<ListItem
             activeClassName={classes.activeListItem}
             className={classes.listItem}
             component={ReflessNavLink}
@@ -174,8 +193,8 @@ class Sidebar extends Component {
               classes={{primary: classes.listItemText}}
               primary="Typography"
             />
-          </ListItem>
-          <ListItem
+          </ListItem>*/}
+          {/*<ListItem
             activeClassName={classes.activeListItem}
             className={classes.listItem}
             component={ReflessNavLink}
@@ -188,8 +207,8 @@ class Sidebar extends Component {
               classes={{primary: classes.listItemText}}
               primary="Icons and Images"
             />
-          </ListItem>
-          <ListItem
+          </ListItem>*/}
+          {/*<ListItem
             activeClassName={classes.activeListItem}
             className={classes.listItem}
             component={ReflessNavLink}
@@ -202,8 +221,8 @@ class Sidebar extends Component {
               classes={{primary: classes.listItemText}}
               primary="Account"
             />
-          </ListItem>
-          <ListItem
+          </ListItem>*/}
+          {/*<ListItem
             activeClassName={classes.activeListItem}
             className={classes.listItem}
             component={ReflessNavLink}
@@ -216,7 +235,7 @@ class Sidebar extends Component {
               classes={{primary: classes.listItemText}}
               primary="Settings"
             />
-          </ListItem>
+          </ListItem>*/}
           <ListItem
             activeClassName={classes.activeListItem}
             className={classes.listItem}
