@@ -10,7 +10,12 @@ import service from 'services/headwords';
 const styles = theme => ({
   root: {
     padding: theme.spacing(4)
-  }
+  },
+  progressWrapper: {
+    padding: theme.spacing(3),
+    display: 'flex',
+    justifyContent: 'center'
+  },
 });
 
 class Headword extends Component {

@@ -2,14 +2,10 @@ export default theme => ({
   root: {
     padding: theme.spacing(4)
   },
-  title: {
-    display: 'inline-block',
-    paddingRight: '10px'
-  },
-  subtitle: {
-    display: 'inline-block',
-    fontWeight: 400,
-    color: theme.palette.text.secondary
+  progressWrapper: {
+    padding: theme.spacing(3),
+    display: 'flex',
+    justifyContent: 'center'
   },
   field: {
     margin: theme.spacing(3)

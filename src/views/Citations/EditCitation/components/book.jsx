@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
-import { Grid, Typography, TextField, Button, FormControl, InputLabel, Paper, Tab, Tabs } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 
 import {
   Portlet,
@@ -23,28 +23,28 @@ let styles = theme => ({
   },
 });
 
-class Website extends Component {
+class Book extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      website: props.website,
+      book: props.book,
       error: null
     };
   }
 
   onChange(path, value) {
-    let website = this.state.website;
-    _.set(website, path, this.fromViewValue(value));
-    this.setState({ website });
+    let book = this.state.book;
+    _.set(book, path, this.fromViewValue(value));
+    this.setState({ book });
   }
 
   fromViewValue(value) {
-    return value === '' ? null : value;
+    return value || null;
   }
 
   render() {
-    const { classes, website } = this.props;
+    const { classes, book } = this.props;
     return (
       <form autoComplete="off" noValidate>
         <div className={classes.field}>
@@ -53,7 +53,7 @@ class Website extends Component {
             label="Title"
             margin="dense"
             required
-            value={website.attributes.title || ''}
+            value={book.attributes.title || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.title', event.target.value)}
           />
@@ -61,31 +61,55 @@ class Website extends Component {
             className={classes.textField}
             label="Author"
             margin="dense"
-            value={website.attributes.author || ''}
+            value={book.attributes.author || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.author', event.target.value)}
           />
           <TextField
             className={classes.textField}
-            label="Published date"
+            label="Year published"
             margin="dense"
-            value={website.attributes.publishedDate || ''}
+            value={book.attributes.yearPublished || ''}
             variant="outlined"
-            onChange={(event) => this.onChange('attributes.publishedDate', event.target.value)}
+            onChange={(event) => this.onChange('attributes.yearPublished', event.target.value)}
+          />
+          <TextField
+            className={classes.textField}
+            label="Year composed"
+            margin="dense"
+            value={book.attributes.yearComposed || ''}
+            variant="outlined"
+            onChange={(event) => this.onChange('attributes.yearComposed', event.target.value)}
+          />
+          <TextField
+            className={classes.textField}
+            label="Publisher"
+            margin="dense"
+            value={book.attributes.publisher || ''}
+            variant="outlined"
+            onChange={(event) => this.onChange('attributes.publisher', event.target.value)}
           />
           <TextField
             className={classes.textField}
             label="Place"
             margin="dense"
-            value={website.attributes.place || ''}
+            value={book.attributes.place || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.place', event.target.value)}
           />
           <TextField
             className={classes.textField}
+            label="Editor"
+            margin="dense"
+            value={book.attributes.editor || ''}
+            variant="outlined"
+            onChange={(event) => this.onChange('attributes.editor', event.target.value)}
+          />
+          <TextField
+            className={classes.textField}
             label="Url"
             margin="dense"
-            value={website.attributes.url || ''}
+            value={book.attributes.url || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.url', event.target.value)}
           />
@@ -93,17 +117,17 @@ class Website extends Component {
             className={classes.textField}
             label="Url Accessed Date"
             margin="dense"
-            value={website.attributes.urlAccessedAt || ''}
+            value={book.attributes.urlAccessedAt || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.urlAccessedAt', event.target.value)}
           />
           <TextField
             className={classes.textField}
-            label="Evidence of usage"
+            label="Page/Column"
             margin="dense"
-            value={website.attributes.evidence || ''}
+            value={book.attributes.page || ''}
             variant="outlined"
-            onChange={(event) => this.onChange('attributes.evidence', event.target.value)}
+            onChange={(event) => this.onChange('attributes.page', event.target.value)}
           />
         </div>
       </form>
@@ -111,17 +135,16 @@ class Website extends Component {
   }
 }
 
-Website.propTypes = {
+Book.propTypes = {
   classes: PropTypes.object.isRequired,
-  website: PropTypes.object
+  book: PropTypes.object
 };
 
-Website.defaultProps = {
-  website: {
+Book.defaultProps = {
+  book: {
     attributes: {},
     relationships: {}
   }
 };
 
-
-export default withStyles(styles)(Website);
+export default withStyles(styles)(Book);

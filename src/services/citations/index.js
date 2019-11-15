@@ -12,4 +12,8 @@ const updateCitation = async (citation) => {
   return await api.put(`citations/${citation.id}`, citation);
 };
 
-export default { getCitations, getCitation, updateCitation };
+const createCitation = async (citation) => {
+  return await api.post(`citations`, citation);
+};
+
+export default { getCitations, getCitation, updateCitation, createCitation };

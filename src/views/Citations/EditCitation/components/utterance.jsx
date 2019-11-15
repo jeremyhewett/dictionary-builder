@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
-import { Grid, Typography, TextField, Button, FormControl, InputLabel, Paper, Tab, Tabs } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 
 import {
   Portlet,

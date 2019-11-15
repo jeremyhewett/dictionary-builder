@@ -3,9 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { CircularProgress, Grid, Typography, TextField, Button, InputLabel, Paper, Tab, Tabs } from '@material-ui/core';
-import { Dashboard as DashboardLayout } from 'layouts';
-import service from 'services/citations';
+import { CircularProgress, Grid, TextField, Button, InputLabel, Paper, Tab, Tabs } from '@material-ui/core';
 import headwordService from 'services/headwords';
 import ReactQuill from 'react-quill';
 
@@ -27,31 +25,26 @@ const partOfSpeechOptions = [
   { value: 'adj.', label: 'Adjective' },
 ];
 
-class Citation extends Component {
+class EditCitation extends Component {
   signal = true;
-  sourceTypes = [null, 'books', 'periodicals', 'utterances', 'websites'];
 
   state = {
     isLoading: false,
-    citation: null,
+    citation: this.props.citation,
     error: null
   };
 
-  async getCitation() {
+  async getHeadwords() {
     try {
       this.setState({ isLoading: true });
 
-      const [citation, headwords] = await Promise.all([
-        service.getCitation(this.props.match.params.citationId),
-        headwordService.getHeadwords()
-      ]);
-
+      let headwords = await headwordService.getHeadwords();
       let headwordOptions = headwords.map(hw => ({ label: hw.attributes.headword, headword: hw }));
+      let citation = this.props.citation;
 
       if (this.signal) {
         this.setState({
           isLoading: false,
-          citation,
           headwordOptions,
           selectedHeadwordOption: headwordOptions.find(opt => opt.headword.id === citation.attributes.headwordId)
         });
@@ -68,23 +61,11 @@ class Citation extends Component {
 
   componentWillMount() {
     this.signal = true;
-    this.getCitation();
+    this.getHeadwords();
   }
 
   componentWillUnmount() {
     this.signal = false;
-  }
-
-  renderTitle() {
-    const { classes } = this.props;
-    const { citation } = this.state;
-
-    return (
-      <div>
-        <Typography className={classes.title} variant="h4">Citation</Typography>
-        <Typography className={classes.subtitle} variant="body2">ID {citation.id}</Typography>
-      </div>
-    );
   }
 
   onChange(path, value) {
@@ -143,7 +124,7 @@ class Citation extends Component {
       });
       this.state.citation.attributes.headwordId = headword.id;
     }
-    await service.updateCitation(this.state.citation);
+    this.props.onSave();
   }
 
   renderCitationDetails() {
@@ -225,8 +206,8 @@ class Citation extends Component {
             <div className={classes.field}>
               <InputLabel htmlFor="citation-input">Citation</InputLabel>
               <ReactQuill className={classes.editor}
-                          value={citation.attributes.text}
-                          onChange={(value) => this.onChange(`attributes.text`, value)}
+                          value={citation.attributes.text || ''}
+                          onChange={(value) => this.onChange(`attributes.text`, value || null)}
                           ref={ref => this.citationEditor = ref}
                           id="citation-input"/>
             </div>
@@ -264,7 +245,6 @@ class Citation extends Component {
   renderSourceDetails() {
     const { classes } = this.props;
     const { citation } = this.state;
-    const { book, periodical, website, utterance } = citation.relationships;
 
     return (
       <Portlet>
@@ -307,41 +287,39 @@ class Citation extends Component {
 
     if (isLoading) {
       return (
-        <DashboardLayout>
-          <div className={classes.progressWrapper}>
-            <CircularProgress />
-          </div>
-        </DashboardLayout>
+        <div className={classes.progressWrapper}>
+          <CircularProgress />
+        </div>
       );
     }
 
     return (
-      <DashboardLayout title={this.renderTitle()}>
-        <div className={classes.root}>
-          <Grid container spacing={4}>
-            <Grid item lg={7} md={7} xl={7} xs={12}>
-              {this.renderCitationDetails()}
-            </Grid>
-            <Grid item lg={5} md={5} xl={5} xs={12}>
-              {this.renderSourceDetails()}
-            </Grid>
+      <div className={classes.root}>
+        <Grid container spacing={4}>
+          <Grid item lg={7} md={7} xl={7} xs={12}>
+            {this.renderCitationDetails()}
           </Grid>
-          <div className={classes.row}>
-            <Button
-              color="primary"
-              variant="contained"
-              className={classes.saveButton}
-              onClick={this.save.bind(this)}
-            >Save</Button>
-          </div>
+          <Grid item lg={5} md={5} xl={5} xs={12}>
+            {this.renderSourceDetails()}
+          </Grid>
+        </Grid>
+        <div className={classes.row}>
+          <Button
+            color="primary"
+            variant="contained"
+            className={classes.saveButton}
+            onClick={this.save.bind(this)}
+          >Save</Button>
         </div>
-      </DashboardLayout>
+      </div>
     );
   }
 }
 
-Citation.propTypes = {
+EditCitation.propTypes = {
+  citation: PropTypes.object.isRequired,
+  onSave: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Citation);
+export default withStyles(styles)(EditCitation);

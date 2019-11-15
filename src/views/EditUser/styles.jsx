@@ -2,6 +2,11 @@ export default theme => ({
   root: {
     padding: theme.spacing(4)
   },
+  progressWrapper: {
+    padding: theme.spacing(3),
+    display: 'flex',
+    justifyContent: 'center'
+  },
   title: {
     display: 'inline-block',
     paddingRight: '10px'

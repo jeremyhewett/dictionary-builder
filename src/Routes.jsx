@@ -7,8 +7,10 @@ import Entries from './views/Entries';
 import Entry from './views/Entry';
 import ListHeadwords from './views/Headwords/ListHeadwords';
 import ShowHeadword from './views/Headwords/ShowHeadword';
-import EditHeadword from './views/Headwords/EditHeadword';
-import Citation from './views/Citation';
+import CreateHeadword from './views/Headwords/CreateHeadword';
+import UpdateHeadword from './views/Headwords/UpdateHeadword';
+import CreateCitation from './views/Citations/CreateCitation';
+import UpdateCitation from './views/Citations/UpdateCitation';
 import Dashboard from './views/Dashboard';
 import ProductList from './views/ProductList';
 import UserList from './views/UserList';
@@ -31,10 +33,12 @@ export default class Routes extends Component {
         <Route component={Entries} exact path="/entries"/>
         <Route component={Entry} exact path="/entries/:entryId"/>
         <Route component={ListHeadwords} exact path="/headwords"/>
-        <Route component={EditHeadword} exact path="/headwords/new"/>
+        <Route component={CreateHeadword} exact path="/headwords/new"/>
         <Route component={ShowHeadword} exact path="/headwords/:headwordId"/>
-        <Route component={EditHeadword} exact path="/headwords/:headwordId/edit"/>
-        <Route component={Citation} exact path="/citations/:citationId"/>
+        <Route component={UpdateHeadword} exact path="/headwords/:headwordId/edit"/>
+        <Route component={CreateCitation} exact path="/citations/new"/>
+        <Route component={CreateCitation} exact path="/citations/new/:headwordId"/>
+        <Route component={UpdateCitation} exact path="/citations/:citationId"/>
         <Route component={Dashboard} exact path="/dashboard"/>
         <Route component={UserList} exact path="/users"/>
         <Route component={EditUser} exact path="/users/new"/>

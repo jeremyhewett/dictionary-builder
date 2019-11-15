@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
-import { Grid, Typography, TextField, Button, FormControl, InputLabel, Paper, Tab, Tabs } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 
 import {
   Portlet,
@@ -23,20 +23,20 @@ let styles = theme => ({
   },
 });
 
-class Book extends Component {
+class Periodical extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      book: props.book,
+      periodical: props.periodical,
       error: null
     };
   }
 
   onChange(path, value) {
-    let book = this.state.book;
-    _.set(book, path, this.fromViewValue(value));
-    this.setState({ book });
+    let periodical = this.state.periodical;
+    _.set(periodical, path, this.fromViewValue(value));
+    this.setState({ periodical });
   }
 
   fromViewValue(value) {
@@ -44,7 +44,7 @@ class Book extends Component {
   }
 
   render() {
-    const { classes, book } = this.props;
+    const { classes, periodical } = this.props;
     return (
       <form autoComplete="off" noValidate>
         <div className={classes.field}>
@@ -53,7 +53,7 @@ class Book extends Component {
             label="Title"
             margin="dense"
             required
-            value={book.attributes.title || ''}
+            value={periodical.attributes.title || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.title', event.target.value)}
           />
@@ -61,55 +61,39 @@ class Book extends Component {
             className={classes.textField}
             label="Author"
             margin="dense"
-            value={book.attributes.author || ''}
+            value={periodical.attributes.author || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.author', event.target.value)}
           />
           <TextField
             className={classes.textField}
-            label="Year published"
+            label="Volume/Issue"
             margin="dense"
-            value={book.attributes.yearPublished || ''}
+            value={periodical.attributes.issue || ''}
             variant="outlined"
-            onChange={(event) => this.onChange('attributes.yearPublished', event.target.value)}
+            onChange={(event) => this.onChange('attributes.issue', event.target.value)}
           />
           <TextField
             className={classes.textField}
-            label="Year composed"
+            label="Date"
             margin="dense"
-            value={book.attributes.yearComposed || ''}
+            value={periodical.attributes.issueDate || ''}
             variant="outlined"
-            onChange={(event) => this.onChange('attributes.yearComposed', event.target.value)}
-          />
-          <TextField
-            className={classes.textField}
-            label="Publisher"
-            margin="dense"
-            value={book.attributes.publisher || ''}
-            variant="outlined"
-            onChange={(event) => this.onChange('attributes.publisher', event.target.value)}
+            onChange={(event) => this.onChange('attributes.issueDate', event.target.value)}
           />
           <TextField
             className={classes.textField}
             label="Place"
             margin="dense"
-            value={book.attributes.place || ''}
+            value={periodical.attributes.place || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.place', event.target.value)}
           />
           <TextField
             className={classes.textField}
-            label="Editor"
-            margin="dense"
-            value={book.attributes.editor || ''}
-            variant="outlined"
-            onChange={(event) => this.onChange('attributes.editor', event.target.value)}
-          />
-          <TextField
-            className={classes.textField}
             label="Url"
             margin="dense"
-            value={book.attributes.url || ''}
+            value={periodical.attributes.url || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.url', event.target.value)}
           />
@@ -117,7 +101,7 @@ class Book extends Component {
             className={classes.textField}
             label="Url Accessed Date"
             margin="dense"
-            value={book.attributes.urlAccessedAt || ''}
+            value={periodical.attributes.urlAccessedAt || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.urlAccessedAt', event.target.value)}
           />
@@ -125,7 +109,7 @@ class Book extends Component {
             className={classes.textField}
             label="Page/Column"
             margin="dense"
-            value={book.attributes.page || ''}
+            value={periodical.attributes.page || ''}
             variant="outlined"
             onChange={(event) => this.onChange('attributes.page', event.target.value)}
           />
@@ -135,16 +119,16 @@ class Book extends Component {
   }
 }
 
-Book.propTypes = {
+Periodical.propTypes = {
   classes: PropTypes.object.isRequired,
-  book: PropTypes.object
+  periodical: PropTypes.object
 };
 
-Book.defaultProps = {
-  book: {
+Periodical.defaultProps = {
+  periodical: {
     attributes: {},
     relationships: {}
   }
 };
 
-export default withStyles(styles)(Book);
+export default withStyles(styles)(Periodical);

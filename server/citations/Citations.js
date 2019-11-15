@@ -19,6 +19,7 @@ class Citations {
     this.router.get('/', this.bind(this.getCitations));
     this.router.get('/:id', this.bind(this.getCitation));
     this.router.put('/:id', auth.authorize('editor', this.bind(this.updateCitation)));
+    this.router.post('/', auth.authorize('editor', this.bind(this.createCitation)));
   }
 
   bind(fn) {
@@ -84,7 +85,7 @@ class Citations {
           await this._db.create(new Utterance(data.relationships.utterance.attributes));
         data.relationships.utterance = helpers.toJsonApi(utterance);
         break;
-      default:
+      case 'website':
         let website = data.relationships.website.id ?
           await this._db.update(new Website({ id: req.params.id }), data.relationships.website.attributes) :
           await this._db.create(new Website(data.relationships.website.attributes));
@@ -94,6 +95,34 @@ class Citations {
     citation.modifiedAt = moment().toJSON();
     citation.modifiedUserId = req.user.id;
     citation = await this._db.update(new Citation({ id: req.params.id }), citation);
+    res.json({ data: helpers.toJsonApi(citation) });
+  }
+
+  async createCitation(req, res) {
+    let { data } = req.body;
+    let citation = Object.assign(new Citation(data.attributes));
+
+    switch(data.attributes.sourceType) {
+      case 'books':
+        let book = await this._db.create(new Book(data.relationships.book.attributes));
+        data.relationships.book = helpers.toJsonApi(book);
+        break;
+      case 'periodicals':
+        let periodical = await this._db.create(new Periodical(data.relationships.periodical.attributes));
+        data.relationships.periodical = helpers.toJsonApi(periodical);
+        break;
+      case 'utterances':
+        let utterance = await this._db.create(new Utterance(data.relationships.utterance.attributes));
+        data.relationships.utterance = helpers.toJsonApi(utterance);
+        break;
+      case 'website':
+        let website = await this._db.create(new Website(data.relationships.website.attributes));
+        data.relationships.website = helpers.toJsonApi(website);
+    }
+
+    citation.createdAt = moment().toJSON();
+    citation.modifiedUserId = req.user.id;
+    citation = await this._db.create(citation);
     res.json({ data: helpers.toJsonApi(citation) });
   }
 }

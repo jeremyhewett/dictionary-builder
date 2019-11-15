@@ -21,7 +21,7 @@ class HeadwordProfile extends Component {
   }
 
   addCitation() {
-    this.props.history.push(`citations/new?headwordId=${this.props.headword.id}`);
+    this.props.history.push(`/citations/new/${this.props.headword.id}`);
   }
 
   render() {
