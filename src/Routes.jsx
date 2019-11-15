@@ -14,7 +14,8 @@ import UpdateCitation from './views/Citations/UpdateCitation';
 import Dashboard from './views/Dashboard';
 import ProductList from './views/ProductList';
 import UserList from './views/UserList';
-import EditUser from './views/EditUser';
+import EditUser from './views/EditUser/editUser';
+import AddUser from './views/EditUser/addUser';
 import Typography from './views/Typography';
 import Icons from './views/Icons';
 import Account from './views/Account';
@@ -41,7 +42,7 @@ export default class Routes extends Component {
         <Route component={UpdateCitation} exact path="/citations/:citationId"/>
         <Route component={Dashboard} exact path="/dashboard"/>
         <Route component={UserList} exact path="/users"/>
-        <Route component={EditUser} exact path="/users/new"/>
+        <Route component={AddUser} exact path="/users/new"/>
         <Route component={EditUser} exact path="/users/:userId/edit"/>
         <Route component={ProductList} exact path="/products"/>
         <Route component={Typography} exact path="/typography"/>
