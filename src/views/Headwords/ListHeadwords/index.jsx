@@ -28,7 +28,7 @@ class Headwords extends Component {
     isLoading: false,
     limit: 6,
     headwords: [],
-    selectedLetter: 'A',
+    selectedLetter: null,
     error: null,
     user: appState.get('user')
   };
@@ -87,7 +87,7 @@ class Headwords extends Component {
 
   renderHeadwords() {
     const { classes } = this.props;
-    const { isLoading, headwords } = this.state;
+    const { isLoading, headwords, selectedLetter } = this.state;
 
     if (isLoading) {
       return (
@@ -97,14 +97,17 @@ class Headwords extends Component {
       );
     }
 
-    if (headwords.length === 0) {
+    let visibleHeadwords = headwords.filter(headword => !selectedLetter ||
+      headword.attributes.headword.charAt(0).toLowerCase() === selectedLetter.toLowerCase());
+
+    if (visibleHeadwords.length === 0) {
       return (
         <Typography variant="h6">No headwords to display</Typography>
       );
     }
 
     return (
-      headwords.map(headword => (
+      visibleHeadwords.map(headword => (
         <HeadwordCard key={headword.id} headword={headword} />
       ))
     );

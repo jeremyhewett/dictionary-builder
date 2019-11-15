@@ -39,7 +39,7 @@ class Entries extends Component {
     isLoading: false,
     limit: 6,
     entries: [],
-    selectedLetter: 'A',
+    selectedLetter: null,
     error: null
   };
 
@@ -84,7 +84,7 @@ class Entries extends Component {
 
   renderEntries() {
     const { classes } = this.props;
-    const { isLoading, entries } = this.state;
+    const { isLoading, entries, selectedLetter } = this.state;
 
     if (isLoading) {
       return (
@@ -94,14 +94,17 @@ class Entries extends Component {
       );
     }
 
-    if (entries.length === 0) {
+    let visibleEntries = entries.filter(entry => !selectedLetter ||
+      entry.relationships.headword.attributes.headword.charAt(0).toLowerCase() === selectedLetter.toLowerCase());
+
+    if (visibleEntries.length === 0) {
       return (
         <Typography variant="h6">No entries to display</Typography>
       );
     }
 
     return (
-      entries.map(entry => (
+      visibleEntries.map(entry => (
         <EntryCard key={entry.id} entry={entry} />
       ))
     );
