@@ -15,12 +15,17 @@ class UserList extends Component {
     limit: 10,
     users: [],
     selectedUsers: [],
+    searchString: '',
     error: null
   };
 
   async getUsers() {
     try {
-      this.setState({ isLoading: true });
+      this.setState({
+        isLoading: true,
+        users: [],
+        selectedUsers: []
+      });
 
       const { limit } = this.state;
 
@@ -51,6 +56,10 @@ class UserList extends Component {
     this.signal = false;
   }
 
+  onSearchChange(searchString) {
+    this.setState({ searchString });
+  }
+
   handleSelect = selectedUsers => {
     this.setState({ selectedUsers });
   };
@@ -63,7 +72,7 @@ class UserList extends Component {
 
   renderUsers() {
     const { classes } = this.props;
-    const { isLoading, users, error } = this.state;
+    const { isLoading, users, error, searchString } = this.state;
 
     if (isLoading) {
       return (
@@ -77,12 +86,15 @@ class UserList extends Component {
       return <Typography variant="h6">{error}</Typography>;
     }
 
-    if (users.length === 0) {
+    let visibleUsers = searchString ?
+      users.filter(user => `${user.attributes.firstName} ${user.attributes.lastName}`.toLowerCase().includes(searchString.toLowerCase()) || user.attributes.email.toLowerCase().includes(searchString.toLowerCase())) :
+      users;
+    if (visibleUsers.length === 0) {
       return <Typography variant="h6">There are no users</Typography>;
     }
 
     return (
-      <UsersTable onSelect={this.handleSelect} users={users} />
+      <UsersTable onSelect={this.handleSelect} users={visibleUsers} />
     );
   }
 
@@ -93,7 +105,7 @@ class UserList extends Component {
     return (
       <DashboardLayout title="Users">
         <div className={classes.root}>
-          <UsersToolbar selectedUsers={selectedUsers} onDeleteUsers={this.deleteUsers.bind(this)}/>
+          <UsersToolbar selectedUsers={selectedUsers} onDeleteUsers={this.deleteUsers.bind(this)} onSearchChange={this.onSearchChange.bind(this)}/>
           <div className={classes.content}>{this.renderUsers()}</div>
         </div>
       </DashboardLayout>

@@ -31,30 +31,14 @@ class AccountProfile extends Component {
           <div className={classes.details}>
             <div className={classes.info}>
               <Typography variant="h2">John Doe</Typography>
-              <Typography
-                className={classes.locationText}
-                variant="body1"
-              >
-                Rm. Valcea, Romania
-              </Typography>
-              <Typography
-                className={classes.dateText}
-                variant="body1"
-              >
-                4:32PM (GMT-4)
-              </Typography>
+              <Typography className={classes.locationText} variant="body1">Rm. Valcea, Romania</Typography>
+              <Typography className={classes.dateText} variant="body1">4:32PM (GMT-4)</Typography>
             </div>
-            <Avatar
-              className={classes.avatar}
-              src="/images/avatars/avatar_1.png"
-            />
+            <Avatar className={classes.avatar} src="/images/avatars/avatar_1.png"/>
           </div>
           <div className={classes.progressWrapper}>
             <Typography variant="body1">Profile Completeness: 70%</Typography>
-            <LinearProgress
-              value={70}
-              variant="determinate"
-            />
+            <LinearProgress value={70} variant="determinate"/>
           </div>
         </PortletContent>
         <PortletFooter>
