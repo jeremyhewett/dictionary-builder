@@ -147,6 +147,7 @@ class EditCitation extends Component {
                 className={classes.textField}
                 freeSolo={true}
                 getOptionLabel={option => option.label}
+                disableClearable
                 value={selectedHeadwordOption}
                 onChange={(event, value) => this.selectHeadword(value)}
                 onInputChange={(event, value) => this.headword = value}

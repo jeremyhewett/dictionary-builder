@@ -36,11 +36,8 @@ class EntryCard extends Component {
               {entry.relationships.headword.attributes.headword}
             </Typography>
             {firstMeaning ? (
-              <Typography
-                className={classes.description}
-                variant="body1"
-              >
-                {firstMeaning.attributes.partOfSpeech} {firstMeaning.attributes.definition}
+              <Typography className={classes.description} variant="body1">
+                {firstMeaning.attributes.partOfSpeech} {firstMeaning.attributes.definition.replace(/(<([^>]+)>)/ig,"")}
               </Typography>
             ) : ''}
           </div>

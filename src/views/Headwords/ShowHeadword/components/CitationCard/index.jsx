@@ -22,7 +22,7 @@ class CitationCard extends Component {
               {citation.attributes.shortMeaning}
             </Typography>
             <Typography className={classes.description} variant="body1">
-              {citation.attributes.clippedText}
+              {citation.attributes.clippedText.replace(/(<([^>]+)>)/ig,"")}
             </Typography>
           </div>
         </Paper>
