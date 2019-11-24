@@ -28,5 +28,13 @@ export default theme => ({
     '&:hover': {
       'background-color': 'rgba(0, 0, 0, 0.3)'
     }
-  }
+  },
+  avatar: {
+    backgroundColor: theme.palette.primary.main,
+    display: 'inline-flex',
+    fontSize: '12px',
+    fontWeight: 500,
+    height: '32px',
+    width: '32px'
+  },
 });

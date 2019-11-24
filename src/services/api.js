@@ -16,7 +16,12 @@ const request = async (url, options) => {
 
   let response = await fetch(url, _.defaultsDeep({}, options, defaultOptions));
   if (response.ok) {
-    return (await response.json()).data;
+    let text = await response.text();
+    try {
+      return JSON.parse(text).data;
+    } catch {
+      return text;
+    }
   }
   if (response.status === 401) {
     appState.set('user', null);

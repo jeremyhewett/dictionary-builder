@@ -2,51 +2,34 @@ import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import api from 'services/api';
 import { state as appState } from 'App';
-
-// Externals
+import { getInitials } from 'helpers';
 import classNames from 'classnames';
 import compose from 'recompose/compose';
 import PropTypes from 'prop-types';
-
-// Material helpers
 import { withStyles } from '@material-ui/core';
-
-// Material components
 import {
-  Badge,
+  Avatar,
   IconButton,
   Popover,
   Toolbar,
   Typography
 } from '@material-ui/core';
-
-// Material icons
 import {
   Menu as MenuIcon,
   Close as CloseIcon,
   Edit as EditIcon,
-  NotificationsOutlined as NotificationsIcon,
   Input as InputIcon
 } from '@material-ui/icons';
 
-// Shared services
-import { getNotifications } from 'services/notification';
-
-// Custom components
-import { NotificationList } from './components';
-
-// Component styles
+import { UserMenu } from './components';
 import styles from './styles';
 
 // Service methods
-const signOut = async () => {
-  let response = await api.put('auth/logout');
-  if (!response.ok) {
-    throw 'Logout failed';
+const service = {
+  signOut: () => {
+    return api.put('auth/logout');
   }
-  return await response.json();
 };
-
 
 class Topbar extends Component {
 
@@ -55,36 +38,20 @@ class Topbar extends Component {
     this.state = {
       user: appState.get('user'),
       isEditMode: appState.get('isEditMode'),
-      notifications: [],
-      notificationsLimit: 4,
-      notificationsCount: 0,
-      notificationsEl: null
+      userMenuItems: [
+        {
+          id: 'logout',
+          title: 'Logout',
+          icon: <InputIcon />
+        }
+      ],
+      userMenuEl: null
     }
   }
   signal = true;
 
-  async getNotifications() {
-    try {
-      const { notificationsLimit } = this.state;
-
-      const { notifications, notificationsCount } = await getNotifications(
-        notificationsLimit
-      );
-
-      if (this.signal) {
-        this.setState({
-          notifications,
-          notificationsCount
-        });
-      }
-    } catch (error) {
-      return;
-    }
-  }
-
   componentDidMount() {
     this.signal = true;
-    this.getNotifications();
   }
 
   componentWillMount() {
@@ -103,27 +70,38 @@ class Topbar extends Component {
     this.signal = false;
   }
 
-  handleSignOut = async () => {
+  signOut = async () => {
     const { history } = this.props;
     try {
-      await signOut();
-    } catch {
-
+      await service.signOut();
+      appState.set('user', null);
+      history.push('/sign-in');
+    } catch(err) {
+      alert(`Error: ${err}`);
     }
-    appState.set('user', null);
-    history.push('/sign-in');
   };
 
-  handleShowNotifications = event => {
+  showUserMenu = event => {
     this.setState({
-      notificationsEl: event.currentTarget
+      userMenuEl: event.currentTarget
     });
   };
 
-  handleCloseNotifications = () => {
+  closeUserMenu = (a, b) => {
+    console.log(a);
+    console.log(b);
     this.setState({
-      notificationsEl: null
+      userMenuEl: null
     });
+  };
+
+  handleUserMenuAction = (item) => {
+    this.setState({
+      userMenuEl: null
+    });
+    if (item.id === 'logout') {
+      this.signOut();
+    }
   };
 
   canEdit() {
@@ -142,10 +120,10 @@ class Topbar extends Component {
       isSidebarOpen,
       onToggleSidebar
     } = this.props;
-    const { notifications, notificationsCount, notificationsEl } = this.state;
+    const { user, userMenuItems, userMenuEl } = this.state;
 
     const rootClassName = classNames(classes.root, className);
-    const showNotifications = Boolean(notificationsEl);
+    const isUserMenuOpen = Boolean(userMenuEl);
 
     return (
       <Fragment>
@@ -174,46 +152,30 @@ class Topbar extends Component {
               </IconButton>)
               : ''
             }
-            <IconButton
-              className={`${classes.rightButton}`}
-              onClick={this.handleShowNotifications}
-            >
-              <Badge
-                badgeContent={notificationsCount}
-                color="primary"
-                variant="dot"
-              >
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
             {this.state.user ?
-              (<IconButton
-                className={`${classes.rightButton}`}
-                onClick={this.handleSignOut}
-              >
-                <InputIcon />
-              </IconButton>)
+              <IconButton className={`${classes.rightButton}`} onClick={this.showUserMenu}>
+                <Avatar alt="" className={classes.avatar}>
+                  {getInitials(`${user.attributes.firstName} ${user.attributes.lastName}`)}
+                </Avatar>
+              </IconButton>
               : ''
             }
           </Toolbar>
         </div>
         <Popover
-          anchorEl={notificationsEl}
+          anchorEl={userMenuEl}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'center'
           }}
-          onClose={this.handleCloseNotifications}
-          open={showNotifications}
+          onClose={this.closeUserMenu}
+          open={isUserMenuOpen}
           transformOrigin={{
             vertical: 'top',
             horizontal: 'center'
           }}
         >
-          <NotificationList
-            notifications={notifications}
-            onSelect={this.handleCloseNotifications}
-          />
+          <UserMenu items={userMenuItems} onSelect={this.handleUserMenuAction}/>
         </Popover>
       </Fragment>
     );
