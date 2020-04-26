@@ -87,9 +87,7 @@ class Topbar extends Component {
     });
   };
 
-  closeUserMenu = (a, b) => {
-    console.log(a);
-    console.log(b);
+  closeUserMenu = () => {
     this.setState({
       userMenuEl: null
     });

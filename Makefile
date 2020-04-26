@@ -5,4 +5,10 @@ startDb: stopDb
 stopDb:
 	docker stop postgres_dictionary || true
 
+createSchema:
+	(cd ./dev/database && node createSchema.js)
+
+seedDatabase:
+	(cd ./dev/database && node seedDatabase.js)
+
 .PHONY: startDb stopDb
