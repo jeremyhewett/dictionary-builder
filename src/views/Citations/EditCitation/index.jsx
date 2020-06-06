@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { CircularProgress, Grid, TextField, Button, InputLabel, Paper, Tab, Tabs } from '@material-ui/core';
-import headwordService from 'services/headwords';
 import ReactQuill from 'react-quill';
+import citationService from 'services/citations';
+import ComboBox from 'components/ComboBox';
 
 import {
   Portlet,
@@ -15,14 +16,16 @@ import {
   PortletFooter
 } from 'components';
 
-import { Book, Periodical, Website, Utterance } from './components';
+import { EditSource } from './components';
 import styles from './styles';
 
 const partOfSpeechOptions = [
   { value: '', label: '' },
-  { value: 'n.', label: 'Noun' },
-  { value: 'v.', label: 'Verb' },
-  { value: 'adj.', label: 'Adjective' },
+  { value: 'noun', label: 'Noun' },
+  { value: 'verb', label: 'Verb' },
+  { value: 'adjective', label: 'Adjective' },
+  { value: 'adverb', label: 'Adverb' },
+  { value: 'properNoun', label: 'Proper Noun' },
 ];
 
 class EditCitation extends Component {
@@ -36,17 +39,29 @@ class EditCitation extends Component {
 
   async getHeadwords() {
     try {
-      this.setState({ isLoading: true });
+      this.setState({
+        isLoading: true,
+        headwordOptions: [],
+        selectedHeadwordOption: { label: '', value: null },
+        meaningOptions: [],
+        selectedMeaningOption: { label: '', value: null },
+      });
 
-      let headwords = await headwordService.getHeadwords();
-      let headwordOptions = headwords.map(hw => ({ label: hw.attributes.headword, headword: hw }));
+      let headwords = await citationService.getHeadwords();
+      let headwordOptions = headwords.map(headword => ({ label: headword.headword, value: headword }));
       let citation = this.props.citation;
+      let selectedHeadwordOption = headwordOptions.find(option => option.value.id === citation.meaning.headword.id);
+      let meanings = await citationService.getMeanings(selectedHeadwordOption.value);
+      let meaningOptions = meanings.map(meaning => ({ label: meaning.shortMeaning, value: meaning }));
+      let selectedMeaningOption = meaningOptions.find(option => option.value.id === citation.meaning.id);
 
       if (this.signal) {
         this.setState({
           isLoading: false,
           headwordOptions,
-          selectedHeadwordOption: headwordOptions.find(opt => opt.headword.id === citation.attributes.headwordId)
+          selectedHeadwordOption,
+          meaningOptions,
+          selectedMeaningOption,
         });
       }
     } catch (error) {
@@ -68,6 +83,14 @@ class EditCitation extends Component {
     this.signal = false;
   }
 
+  componentDidUpdate(prevProps){
+    if(prevProps.citation !== this.props.citation) {
+      console.log('component did update');
+      this.setState({ citation: this.props.citation });
+      this.getHeadwords();
+    }
+  }
+
   onChange(path, value) {
     let citation = this.state.citation;
     _.set(citation, path, value);
@@ -78,9 +101,9 @@ class EditCitation extends Component {
     let range = this.citationEditor.editor.getSelection(true);
     let contents = this.citationEditor.editor.getContents(range.index, range.length);
     let citation = this.state.citation;
-    _.set(citation, 'attributes.clipStart', range.index);
-    _.set(citation, 'attributes.clipEnd', range.index + range.length);
-    _.set(citation, 'attributes.clippedText', contents);
+    _.set(citation, 'clipStart', range.index);
+    _.set(citation, 'clipEnd', range.index + range.length);
+    _.set(citation, 'clippedText', contents);
     this.isClipping = true;
     this.setState({ citation });
   }
@@ -89,47 +112,65 @@ class EditCitation extends Component {
     if (this.isClipping) {
       this.isClipping = false;
       let citation = this.state.citation;
-      _.set(citation, 'attributes.clippedText', value);
+      _.set(citation, 'clippedText', value);
       this.setState({ citation });
     }
   }
 
-  selectHeadword(option) {
-    this.setState({ selectedHeadwordOption: option });
-    this.onChange('attributes.headwordId', option && option.headword.id);
+  async headwordChanged(option) {
+    console.log(`headwordChanged: ${JSON.stringify(option)}`);
+    this.setState({
+      selectedHeadwordOption: option,
+      meaningOptions: [],
+      selectedMeaningOption: { label: '', value: null },
+    });
+    if (typeof option.value === 'string') {
+      let headword = { headword: option.value };
+      this.onChange('meaning', { headword });
+    } else {
+      let headword = option.value;
+      this.onChange('meaning', { headword });
+      let meanings = await citationService.getMeanings(option.value);
+      let meaningOptions = meanings.map(meaning => ({ label: meaning.shortMeaning, value: meaning }));
+      let selectedMeaningOption = meaningOptions.length ? meaningOptions[0] : null;
+      let meaning = selectedMeaningOption ? selectedMeaningOption.value : { headwordId: option.value.id };
+      this.onChange('meaning', { ...meaning, headword: option.value });
+      this.setState({ meaningOptions, selectedMeaningOption });
+    }
   }
 
-  consolidateHeadword() {
-    if ((this.headword || null) !== (this.state.selectedHeadwordOption && this.state.selectedHeadwordOption.label)) {
-      let option = this.state.headwordOptions.find(opt => opt.label === this.headword);
-      if (option) {
-        this.selectHeadword(option);
-      } else {
-        this.onChange('attributes.headwordId', null);
-      }
-    }
+  meaningChanged(option) {
+    console.log(`meaningChanged: ${JSON.stringify(option)}`);
+    this.setState({ selectedMeaningOption: option });
+    let headword = this.state.citation.meaning.headword;
+    let meaning = typeof option.value === 'string' ? {
+      shortMeaning: option.value,
+      headwordId: headword.id,
+      headword
+    } : {
+      ...option.value,
+      headword
+    };
+    this.onChange('meaning', meaning);
   }
 
   async save() {
-    if (!this.state.citation.attributes.headwordId) {
-      if (!window.confirm(`Create new headword "${this.headword}"?`)) {
-        alert('Citation not saved');
-        return;
-      }
-      let headword = await headwordService.createHeadword({
-        type: 'headwords',
-        attributes: {
-          headword: this.headword
-        },
-      });
-      this.state.citation.attributes.headwordId = headword.id;
+    this.setState({ isLoading: true });
+    try {
+      this.props.onSave();
+    } finally {
+      this.setState({ isLoading: false });
     }
-    this.props.onSave();
   }
 
   renderCitationDetails() {
     const { classes } = this.props;
-    const { citation, headwordOptions, selectedHeadwordOption } = this.state;
+    const { citation,
+      headwordOptions,
+      selectedHeadwordOption,
+      meaningOptions,
+      selectedMeaningOption,
+    } = this.state;
 
     return (
       <Portlet>
@@ -137,51 +178,32 @@ class EditCitation extends Component {
           <PortletLabel title="Citation Details" />
         </PortletHeader>
         <PortletContent noPadding>
-          <form
-            autoComplete="off"
-            noValidate
-          >
+          <form autoComplete="off" noValidate>
             <div className={classes.field}>
-              <Autocomplete
+              <ComboBox
+                style={{display: 'inline-block'}}
                 options={headwordOptions}
-                className={classes.textField}
-                freeSolo={true}
-                getOptionLabel={option => option.label}
-                disableClearable
+                classes={classes}
                 value={selectedHeadwordOption}
-                onChange={(event, value) => this.selectHeadword(value)}
-                onInputChange={(event, value) => this.headword = value}
-                onBlur={() => this.consolidateHeadword(this.headword)}
-                renderInput={params => (
-                  <TextField
-                    {...params}
-                    label="Headword"
-                    margin="dense"
-                    required
-                    variant="outlined"
-                    fullWidth />
-                )}
-              />
+                onChange={(value) => this.headwordChanged(value)}
+                required
+                label="Headword"/>
+              <div style={{ display: 'inline-block', position: 'relative' }}>
+                {(typeof selectedHeadwordOption.value) === 'string' ? <span style={{fontStyle: 'italic', fontSize: 12, color: 'green', position: 'absolute', left: '-18px', top: '4px'}}>NEW</span> : ''}
+              </div>
             </div>
             <div className={classes.field}>
-              <TextField
-                className={classes.textField}
-                label="Short Meaning"
-                margin="dense"
-                value={citation.attributes.shortMeaning || ''}
-                onChange={(event) => this.onChange('attributes.shortMeaning', event.target.value)}
-                variant="outlined"
-              />
-            </div>
-            <div className={classes.field}>
-              <TextField
-                className={classes.textField}
-                label="Spelling Variant"
-                margin="dense"
-                value={citation.attributes.spellingVariant || ''}
-                onChange={(event) => this.onChange('attributes.spellingVariant', event.target.value)}
-                variant="outlined"
-              />
+              <ComboBox
+                style={{display: 'inline-block'}}
+                options={meaningOptions}
+                classes={classes}
+                value={selectedMeaningOption}
+                onChange={(value) => this.meaningChanged(value)}
+                required
+                label="Meaning"/>
+              <div style={{ display: 'inline-block', position: 'relative' }}>
+                {typeof selectedMeaningOption.value === 'string' ? <span style={{fontStyle: 'italic', fontSize: 12, color: 'green', position: 'absolute', left: '-18px', top: '4px'}}>NEW</span> : ''}
+              </div>
             </div>
             <div className={classes.field}>
               <TextField
@@ -189,10 +211,11 @@ class EditCitation extends Component {
                 label="Part of Speech"
                 margin="dense"
                 required
+                disabled={typeof selectedMeaningOption.value !== 'string'}
                 select
                 SelectProps={{ native: true }}
-                value={citation.attributes.partOfSpeech || ''}
-                onChange={(event) => this.onChange('attributes.partOfSpeech', event.target.value)}
+                value={citation.meaning.partOfSpeech || ''}
+                onChange={(event) => this.onChange('meaning.partOfSpeech', event.target.value)}
                 variant="outlined">
                 {partOfSpeechOptions.map(option => (
                   <option
@@ -207,8 +230,8 @@ class EditCitation extends Component {
             <div className={classes.field}>
               <InputLabel htmlFor="citation-input">Citation</InputLabel>
               <ReactQuill className={classes.editor}
-                          value={citation.attributes.text || ''}
-                          onChange={(value) => this.onChange(`attributes.text`, value || null)}
+                          value={citation.text || ''}
+                          onChange={(value) => this.onChange(`text`, value || null)}
                           ref={ref => this.citationEditor = ref}
                           id="citation-input"/>
             </div>
@@ -221,26 +244,26 @@ class EditCitation extends Component {
               >Clip</Button>
             </div>
             <div className={classes.field}>
-              <InputLabel>Clipped Citation{citation.attributes.clipEnd > citation.attributes.clipStart ? ` (${citation.attributes.clipStart} - ${citation.attributes.clipEnd})` : ''}</InputLabel>
-              <ReactQuill value={ citation.attributes.clippedText || ''}
+              <InputLabel>Clipped Citation{citation.clipEnd > citation.clipStart ? ` (${citation.clipStart} - ${citation.clipEnd})` : ''}</InputLabel>
+              <ReactQuill value={ citation.clippedText || ''}
                           readOnly={true}
                           onChange={this.onClippingChange.bind(this)}
                           theme="bubble"/>
+            </div>
+            <div className={classes.field}>
+              <TextField
+                className={classes.textField}
+                label="Memo"
+                margin="dense"
+                value={citation.memo || ''}
+                onChange={(event) => this.onChange('memo', event.target.value)}
+                variant="outlined">
+              </TextField>
             </div>
           </form>
         </PortletContent>
       </Portlet>
     );
-  }
-
-  renderSourceForm() {
-    const { citation } = this.state;
-    switch(citation.attributes.sourceType) {
-      case 'books': return <Book book={citation.relationships.book} />;
-      case 'periodicals': return <Periodical periodical={citation.relationships.periodical} />;
-      case 'websites': return <Website website={citation.relationships.website} />;
-      case 'utterances': return <Utterance utterance={citation.relationships.utterance} />;
-    }
   }
 
   renderSourceDetails() {
@@ -253,21 +276,7 @@ class EditCitation extends Component {
           <PortletLabel title="Source Details" />
         </PortletHeader>
         <PortletContent noPadding>
-          <Paper square>
-            <Tabs
-              value={citation.attributes.sourceType}
-              indicatorColor="primary"
-              textColor="primary"
-              onChange={(e, value) => this.onChange('attributes.sourceType', value)}
-            >
-              <Tab className={classes.sourceTab} value={null} label="None"/>
-              <Tab className={classes.sourceTab} value="books" label="Book" />
-              <Tab className={classes.sourceTab} value="periodicals" label="Periodical" />
-              <Tab className={classes.sourceTab} value="utterances" label="Spoken" />
-              <Tab className={classes.sourceTab} value="websites" label="Website/Other" />
-            </Tabs>
-          </Paper>
-          {this.renderSourceForm()}
+          <EditSource source={citation.source}/>
         </PortletContent>
         {/*<PortletFooter className={classes.portletFooter}>
           <Button

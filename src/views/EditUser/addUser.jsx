@@ -31,16 +31,16 @@ class AddUser extends Component {
       this.setState({ isLoading: true });
 
       const user = {
-        attributes: {},
-        relationships: {
-          roles: []
-        }
+        userRoles: []
       };
+
+      const roles = await service.getRoles();
 
       if (this.signal) {
         this.setState({
           isLoading: false,
-          user
+          user,
+          roles
         });
       }
     } catch (error) {
@@ -73,7 +73,7 @@ class AddUser extends Component {
 
   render() {
     const { classes } = this.props;
-    const { user, isLoading } = this.state;
+    const { user, roles, isLoading } = this.state;
 
     if (isLoading) {
       return (
@@ -90,7 +90,7 @@ class AddUser extends Component {
         <div className={classes.root}>
           <Grid container spacing={4}>
             <Grid item lg={8} md={6} xl={8} xs={12}>
-              <AccountDetails user={user} onSave={this.save.bind(this)} />
+              <AccountDetails user={user} roles={roles} onSave={this.save.bind(this)} />
             </Grid>
           </Grid>
         </div>

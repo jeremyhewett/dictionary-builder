@@ -2,18 +2,14 @@ const _ = require('lodash');
 const moment = require('moment');
 const express = require('express');
 const helpers = require('../helpers');
-const Database = require('../database/Database');
+const db = require('../database/db');
 const Auth = require('../auth/Auth');
 const Headword = require('../database/types/Headword');
 const Citation = require('../database/types/Citation');
-const Book = require('../database/types/Book');
-const Periodical = require('../database/types/Periodical');
-const Website = require('../database/types/Website');
-const Utterance = require('../database/types/Utterance');
 
 class Citations {
   constructor(config = {}) {
-    this._db = new Database();
+    this._db = db;
     let auth = new Auth(config);
     this.router = express.Router();
     this.router.get('/', this.bind(this.getCitations));
@@ -43,10 +39,10 @@ class Citations {
 
     let [headword, books, periodicals, websites, utterances] = await Promise.all([
       this._db.get(new Headword({ id: citation.headwordId })),
-      this._db.query(new Book({ citationId: citation.id })),
+      /*this._db.query(new Book({ citationId: citation.id })),
       this._db.query(new Periodical({ citationId: citation.id })),
       this._db.query(new Website({ citationId: citation.id })),
-      this._db.query(new Utterance({ citationId: citation.id }))
+      this._db.query(new Utterance({ citationId: citation.id }))*/
     ]);
 
     let data = Object.assign(helpers.toJsonApi(citation), {

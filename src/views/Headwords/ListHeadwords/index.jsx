@@ -87,7 +87,7 @@ class Headwords extends Component {
 
   renderHeadwords() {
     const { classes } = this.props;
-    const { isLoading, headwords, selectedLetter } = this.state;
+    const { isLoading, error, headwords, selectedLetter } = this.state;
 
     if (isLoading) {
       return (
@@ -97,8 +97,13 @@ class Headwords extends Component {
       );
     }
 
+    if (error) {
+      return <div>{error}</div>
+    }
+
+
     let visibleHeadwords = headwords.filter(headword => !selectedLetter ||
-      headword.attributes.headword.charAt(0).toLowerCase() === selectedLetter.toLowerCase());
+      headword.headword.charAt(0).toLowerCase() === selectedLetter.toLowerCase());
 
     if (visibleHeadwords.length === 0) {
       return (

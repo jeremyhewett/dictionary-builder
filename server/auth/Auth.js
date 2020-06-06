@@ -3,14 +3,14 @@ const jwt = require('jsonwebtoken');
 const uuidv4 = require('uuid/v4');
 const bcrypt = require('bcrypt');
 const helpers = require('../helpers');
-const Database = require('../database/Database');
+const db = require('../database/db');
 const User = require('../database/types/User');
-const UserRoleLink = require('../database/types/UserRoleLink');
+const UserRole = require('../database/types/UserRole');
 const Role = require('../database/types/Role');
 
 class Auth {
   constructor(config = {}) {
-    this._db = new Database();
+    this._db = db;
     this._secret = config.app.secret;
     this._tokenTtl = config.app.tokenTtl;
     this.authenticator = this._authenticator.bind(this);
@@ -115,15 +115,19 @@ class Auth {
     next();
   }
 
-  authorize(role, handler) {
-    if (arguments.length === 1 && typeof role === 'function') {
-      handler = role;
-      role = undefined;
+  authorize(roles, handler) {
+    if (arguments.length === 1 && typeof roles === 'function') {
+      handler = roles;
+      roles = undefined;
+    }
+
+    if (typeof roles === 'string') {
+      roles = [roles];
     }
 
     return (req, res, next) => {
       if (req.user) {
-        if (typeof role === 'undefined' || req.user.roles.includes(role)) {
+        if (typeof roles === 'undefined' || roles.some(role => req.user.roles.includes(role))) {
           handler(req, res, next);
         } else {
           res.sendStatus(403);
@@ -137,7 +141,7 @@ class Auth {
   async _getUser(email) {
     let user = await this._db.get(new User({ email }));
     if (user && user.isActive) {
-      let userRoleLinks = await this._db.query(new UserRoleLink({ userId: user.id }));
+      let userRoleLinks = await this._db.query(new UserRole({ userId: user.id }));
       let roles = await this._roles();
       user.roles = userRoleLinks
         .map(link => roles.find(role => role.id === link.roleId))

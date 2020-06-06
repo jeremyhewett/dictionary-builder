@@ -50,9 +50,9 @@ class EditHeadword extends Component {
                 label="Headword"
                 margin="dense"
                 required
-                value={headword.attributes.headword || ''}
+                value={headword.headword || ''}
                 variant="outlined"
-                onChange={(event) => this.onChange('attributes.headword', event.target.value || null)}
+                onChange={(event) => this.onChange('headword', event.target.value || null)}
               />
             </div>
           </form>

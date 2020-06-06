@@ -9,11 +9,13 @@ import { Portlet, PortletContent, PortletFooter } from 'components';
 import styles from './styles';
 
 class HeadwordProfile extends Component {
-  hasEntry = this.props.headword.relationships.entry;
+  hasEntry = this.props.headword.entries.length;
 
   goToEntry() {
-    let entryId = this.props.headword.relationships.entry.id;
-    this.props.history.push(`/entries/${entryId}`);
+    if (this.props.headword.entries.length) {
+      let entryId = this.props.headword.entries[0].id;
+      this.props.history.push(`/entries/${entryId}`);
+    }
   }
 
   goToEdit() {
@@ -34,19 +36,19 @@ class HeadwordProfile extends Component {
         <PortletContent>
           <div className={classes.details}>
             <div className={classes.info}>
-              <Typography variant="h2">{headword.attributes.headword}</Typography>
+              <Typography variant="h2">{headword.headword}</Typography>
               <Typography className={classes.dateText} variant="body1">
                 Created 1 January 2010
               </Typography>
               <Typography className={classes.locationText} variant="body1">
-                { headword.relationships.citations.length } Citations
+                { headword.meanings.reduce((count, meaning) => count += meaning.citations.length, 0) } Citations
               </Typography>
             </div>
             {/*<Avatar className={classes.avatar} src="/images/avatars/avatar_1.png"/>*/}
           </div>
           <div className={classes.progressWrapper}>
-            <Typography variant="body1">Entry Completeness: {headword.meta.completeness}%</Typography>
-            <LinearProgress value={headword.meta.completeness} variant="determinate"/>
+            <Typography variant="body1">Entry Completeness: {headword.entry.percentageComplete()}%</Typography>
+            <LinearProgress value={headword.entry.percentageComplete()} variant="determinate"/>
           </div>
         </PortletContent>
         <PortletFooter>

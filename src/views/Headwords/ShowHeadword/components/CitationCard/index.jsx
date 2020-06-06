@@ -10,7 +10,7 @@ import styles from './styles';
 
 class CitationCard extends Component {
   render() {
-    const { classes, className, citation } = this.props;
+    const { classes, className, meaning, citation } = this.props;
 
     const rootClassName = classNames(classes.root, className);
 
@@ -19,10 +19,10 @@ class CitationCard extends Component {
         <Paper className={rootClassName}>
           <div className={classes.details}>
             <Typography className={classes.title} variant="h4">
-              {citation.attributes.shortMeaning}
+              {meaning.shortMeaning}
             </Typography>
             <Typography className={classes.description} variant="body1">
-              {citation.attributes.clippedText.replace(/(<([^>]+)>)/ig,"")}
+              {citation.clippedText.replace(/(<([^>]+)>)/ig,"")}
             </Typography>
           </div>
         </Paper>
@@ -34,6 +34,7 @@ class CitationCard extends Component {
 CitationCard.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
+  meaning: PropTypes.object.isRequired,
   citation: PropTypes.object.isRequired
 };
 

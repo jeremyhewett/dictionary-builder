@@ -15,7 +15,10 @@ import {
 import styles from './styles';
 
 class AccountDetails extends Component {
-  state = { user: this.props.user };
+  state = {
+    user: this.props.user,
+    roles: this.props.roles
+  };
 
   onChange(path, value) {
     let user = this.state.user;
@@ -25,12 +28,12 @@ class AccountDetails extends Component {
 
   setRole(role, enabled) {
     let user = this.state.user;
-    let hasRole = user.relationships.roles.includes(role);
+    let hasRole = user.userRoles.some(ur => ur.role.id === role.id);
     if (hasRole !== enabled) {
       if (enabled) {
-        user.relationships.roles = user.relationships.roles.concat([role]);
+        user.userRoles = user.userRoles.concat([{ role }]);
       } else {
-        user.relationships.roles = user.relationships.roles.filter(r => r !== role);
+        user.userRoles = user.userRoles.filter(ur => ur.role.id !== role.id);
       }
       this.setState({ user });
     }
@@ -38,7 +41,7 @@ class AccountDetails extends Component {
 
   render() {
     const { classes, className, onSave, ...rest } = this.props;
-    const { user } = this.state;
+    const { user, roles } = this.state;
 
     const rootClassName = classNames(classes.root, className);
 
@@ -55,8 +58,8 @@ class AccountDetails extends Component {
                 label="First name"
                 margin="dense"
                 required
-                value={user.attributes.firstName || ''}
-                onChange={(event) => this.onChange('attributes.firstName', event.target.value || null)}
+                value={user.firstName || ''}
+                onChange={(event) => this.onChange('firstName', event.target.value || null)}
                 variant="outlined"
               />
             </div>
@@ -66,8 +69,8 @@ class AccountDetails extends Component {
                 label="Last name"
                 margin="dense"
                 required
-                value={user.attributes.lastName || ''}
-                onChange={(event) => this.onChange('attributes.lastName', event.target.value || null)}
+                value={user.lastName || ''}
+                onChange={(event) => this.onChange('lastName', event.target.value || null)}
                 variant="outlined"
               />
             </div>
@@ -77,8 +80,8 @@ class AccountDetails extends Component {
                 label="Email Address"
                 margin="dense"
                 required
-                value={user.attributes.email || ''}
-                onChange={(event) => this.onChange('attributes.email', event.target.value || null)}
+                value={user.email || ''}
+                onChange={(event) => this.onChange('email', event.target.value || null)}
                 variant="outlined"
               />
             </div>
@@ -87,38 +90,22 @@ class AccountDetails extends Component {
                 className={classes.textField}
                 label="Password"
                 margin="dense"
-                value={user.attributes.password || ''}
-                onChange={(event) => this.onChange('attributes.password', event.target.value || null)}
+                value={user.password || ''}
+                onChange={(event) => this.onChange('password', event.target.value || null)}
                 variant="outlined"
               />
             </div>
-            <div className={classes.checkboxField}>
-              <Checkbox
-                checked={user.relationships.roles.includes('admin')}
-                onChange={event => this.setRole('admin', event.target.checked)}
-                color="primary"
-                id="admin-role-input"
-              />
-              <label htmlFor="admin-role-input"><Typography variant="body1">Admin</Typography></label>
-            </div>
-            <div className={classes.checkboxField}>
-              <Checkbox
-                checked={user.relationships.roles.includes('editor')}
-                onChange={event => this.setRole('editor', event.target.checked)}
-                color="primary"
-                id="editor-role-input"
-              />
-              <label htmlFor="editor-role-input"><Typography variant="body1">Editor</Typography></label>
-            </div>
-            <div className={classes.checkboxField}>
-              <Checkbox
-                checked={user.relationships.roles.includes('reviewer')}
-                onChange={event => this.setRole('reviewer', event.target.checked)}
-                color="primary"
-                id="reviewer-role-input"
-              />
-              <label htmlFor="reviewer-role-input"><Typography variant="body1">Reviewer</Typography></label>
-            </div>
+            {roles.map((role) => (
+              <div className={classes.checkboxField} key={role.id}>
+                <Checkbox
+                  checked={user.userRoles.some(ur => ur.role.id === role.id)}
+                  onChange={event => this.setRole(role, event.target.checked)}
+                  color="primary"
+                  id={`${role.name}-role-input`}
+                />
+                <label htmlFor={`${role.name}-role-input`}><Typography variant="body1">{role.name}</Typography></label>
+              </div>
+            ))}
           </form>
         </PortletContent>
         <PortletFooter className={classes.portletFooter}>
@@ -133,6 +120,7 @@ AccountDetails.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
+  roles: PropTypes.array.isRequired,
   onSave: PropTypes.func
 };
 

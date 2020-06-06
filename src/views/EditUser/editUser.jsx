@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
@@ -30,12 +31,18 @@ class EditUser extends Component {
     try {
       this.setState({ isLoading: true });
 
-      const user = await service.getUser(this.props.match.params.userId);
+      const [user, roles] = await Promise.all([
+        service.getUser(this.props.match.params.userId),
+        service.getRoles()
+      ]);
+
+      this.originalUser = _.cloneDeep(user);
 
       if (this.signal) {
         this.setState({
           isLoading: false,
-          user
+          user,
+          roles
         });
       }
     } catch (error) {
@@ -59,7 +66,7 @@ class EditUser extends Component {
 
   async save() {
     try {
-      await service.updateUser(this.state.user);
+      await service.updateUser(this.state.user, this.originalUser);
       this.props.history.push(`/users`);
     } catch(err) {
       alert(`Error: ${err}`);
@@ -68,7 +75,7 @@ class EditUser extends Component {
 
   render() {
     const { classes } = this.props;
-    const { user, isLoading } = this.state;
+    const { user, roles, isLoading } = this.state;
 
     if (isLoading) {
       return (
@@ -88,7 +95,7 @@ class EditUser extends Component {
               <AccountProfile user={user} />
             </Grid>
             <Grid item lg={8} md={6} xl={8} xs={12}>
-              <AccountDetails user={user} onSave={this.save.bind(this)} />
+              <AccountDetails user={user} roles={roles} onSave={this.save.bind(this)} />
             </Grid>
           </Grid>
         </div>

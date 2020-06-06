@@ -152,16 +152,16 @@ class UsersTable extends Component {
                           />
                           <Avatar
                             className={classes.avatar}
-                            src={user.attributes.avatarUrl}
+                            src={user.avatarUrl}
                           >
-                            {getInitials(`${user.attributes.firstName} ${user.attributes.lastName}`)}
+                            {getInitials(`${user.firstName} ${user.lastName}`)}
                           </Avatar>
                           <Link to={`/users/${user.id}/edit`}>
                             <Typography
                               className={classes.nameText}
                               variant="body1"
                             >
-                              {`${user.attributes.firstName} ${user.attributes.lastName}`}
+                              {`${user.firstName} ${user.lastName}`}
                             </Typography>
                           </Link>
                         </div>
@@ -170,13 +170,13 @@ class UsersTable extends Component {
                         {user.id}
                       </TableCell>
                       <TableCell className={classes.tableCell}>
-                        {user.attributes.email}
+                        {user.email}
                       </TableCell>
                       <TableCell className={classes.tableCell}>
-                        {user.attributes.isActive ? user.relationships.roles.join(', ') : 'Deactivated'}
+                        {user.isActive ? user.userRoles.map(ur => ur.role.name).join(', ') : 'Deactivated'}
                       </TableCell>
                       <TableCell className={classes.tableCell}>
-                        {user.attributes.createdAt && moment(user.attributes.createdAt).format('DD MMM YYYY')}
+                        {user.createdAt && moment(user.createdAt).format('DD MMM YYYY')}
                       </TableCell>
                     </TableRow>
                   ))}

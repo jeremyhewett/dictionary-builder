@@ -95,7 +95,7 @@ class Entries extends Component {
     }
 
     let visibleEntries = entries.filter(entry => !selectedLetter ||
-      entry.relationships.headword.attributes.headword.charAt(0).toLowerCase() === selectedLetter.toLowerCase());
+      entry.headword.headword.charAt(0).toLowerCase() === selectedLetter.toLowerCase());
 
     if (visibleEntries.length === 0) {
       return (

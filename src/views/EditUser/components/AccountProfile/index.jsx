@@ -19,12 +19,12 @@ class AccountProfile extends Component {
         <PortletContent>
           <div className={classes.details}>
             <div className={classes.info}>
-              <Typography variant="h2">{user.attributes.firstName} {user.attributes.lastName}</Typography>
-              <Typography className={classes.subtitle} variant="body1">{user.relationships.roles.join(', ')}</Typography>
-              <Typography className={classes.subtitle2} variant="body1">Added {moment(user.attributes.createdAt).format('DD MMM YYYY')}</Typography>
+              <Typography variant="h2">{user.firstName} {user.lastName}</Typography>
+              <Typography className={classes.subtitle} variant="body1">{user.userRoles.map(ur => ur.role.name).join(', ')}</Typography>
+              <Typography className={classes.subtitle2} variant="body1">Added {moment(user.createdAt).format('DD MMM YYYY')}</Typography>
             </div>
-            <Avatar className={classes.avatar} src={user.attributes.avatarUrl}>
-              {getInitials(`${user.attributes.firstName} ${user.attributes.lastName}`)}
+            <Avatar className={classes.avatar} src={user.avatarUrl}>
+              {getInitials(`${user.firstName} ${user.lastName}`)}
             </Avatar>
           </div>
           <div className={classes.progressWrapper}>
@@ -33,7 +33,7 @@ class AccountProfile extends Component {
           </div>
         </PortletContent>
         <PortletFooter>
-          {user.attributes.isActive ?
+          {user.isActive ?
             <Button variant="text">Deactivate</Button> :
             <Button color="primary" variant="text">Re-activate</Button>
           }

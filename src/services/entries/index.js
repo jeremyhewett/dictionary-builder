@@ -1,4 +1,4 @@
-import api from 'services/api';
+import api from 'services/graphqlApi';
 
 class Cache {
   constructor() {
@@ -23,9 +23,45 @@ class Cache {
 }
 
 export const getEntries = async (limit) => {
-  return await api.get(`entries`);
+  let query = `{
+    entries {
+      id
+      headword {
+        headword
+      }
+    }
+  }`;
+  return (await api.query(query)).entries;
 };
 
 export const getEntry = async (entryId) => {
-  return await api.get(`entries/${entryId}`);
+  let query = `{
+    entry {
+      id
+      headword {
+        headword
+      }
+      meaningDisplays {
+        meaning {
+          partOfSpeech
+          definition
+        }
+        citationDisplays {
+          citation {
+            text
+            source {
+              author {
+                title
+                surname
+                forenames
+              }
+              titleOfWork
+              titleOfPublication
+            }
+          }
+        }
+      }
+    }
+  }`;
+  return await api.query(query);
 };

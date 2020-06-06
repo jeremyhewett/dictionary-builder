@@ -2,15 +2,15 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
 const helpers = require('../helpers');
-const Database = require('../database/Database');
+const db = require('../database/db');
 const Auth = require('../auth/Auth');
 const User = require('../database/types/User');
-const UserRoleLink = require('../database/types/UserRoleLink');
+const UserRole = require('../database/types/UserRole');
 const Role = require('../database/types/Role');
 
 class Users {
   constructor(config = {}) {
-    this._db = new Database();
+    this._db = db;
     let auth = new Auth(config);
     this.router = express.Router();
     this.router.get('/', auth.authorize('admin', this.bind(this.getUsers)));
@@ -34,10 +34,10 @@ class Users {
     let users = await this._db.query(new User());
     let roles = await this._db.scan(new Role());
     let userIds = users.map(user => user.id);
-    let userRoleLinks = await this._db.query(new UserRoleLink({ userId: userIds }));
+    let userRoles = await this._db.query(new UserRole({ userId: userIds }));
     let data = users.map(helpers.toJsonApi);
     data.forEach(user => {
-      let roleLinks = userRoleLinks.filter(link => link.userId === user.id);
+      let roleLinks = userRoles.filter(link => link.userId === user.id);
       user.relationships = {
         roles: roleLinks
           .map(link => roles.find(role => role.id === link.roleId))
@@ -57,7 +57,7 @@ class Users {
       res.sendStatus(404);
     }
 
-    let userRoleLinks = await this._db.query(new UserRoleLink({ userId: user.id }));
+    let userRoleLinks = await this._db.query(new UserRole({ userId: user.id }));
     let userRoles = userRoleLinks
       .map(link => roles.find(role => role.id === link.roleId))
       .filter(role => role)
@@ -72,7 +72,7 @@ class Users {
 
   async createUser(req, res) {
     let { data } = req.body;
-    let user = Object.assign(new User(data.attributes));
+    let user = new User(data.attributes);
     user.passwordHash = await bcrypt.hash(data.attributes.password, 10);
     user.createdAt = moment().toJSON();
     user = await this._db.create(user);
@@ -81,7 +81,7 @@ class Users {
       let roles = await this._db.scan(new Role());
       let roleIds = roles.filter(role => data.relationships.roles.includes(role.name))
         .map(role => role.id);
-      await Promise.all(roleIds.map(roleId => this._db.create(new UserRoleLink({ roleId, userId: user.id }))));
+      await Promise.all(roleIds.map(roleId => this._db.create(new UserRole({ roleId, userId: user.id }))));
     }
 
     res.json({ data });
@@ -99,8 +99,8 @@ class Users {
       let roles = await this._db.scan(new Role());
       let roleIds = roles.filter(role => data.relationships.roles.includes(role.name))
         .map(role => role.id);
-      await this._db.delete(new UserRoleLink({ userId: user.id }));
-      await Promise.all(roleIds.map(roleId => this._db.create(new UserRoleLink({ roleId, userId: user.id }))));
+      await this._db.delete(new UserRole({ userId: user.id }));
+      await Promise.all(roleIds.map(roleId => this._db.create(new UserRole({ roleId, userId: user.id }))));
     }
 
     res.json({ data });
@@ -108,7 +108,7 @@ class Users {
 
   async deleteUser(req, res) {
     let id = req.params.id;
-    await this._db.delete(new UserRoleLink( { userId: id }));
+    await this._db.delete(new UserRole( { userId: id }));
     await this._db.delete(new User( { id }));
     res.json({ data: {} });
   }

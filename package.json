@@ -3,13 +3,22 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "prof": "node --prof-process isolate-0000015885D80B80-v8-6-6-2020_4-32-26-PM-.log > processed.txt",
     "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start": "node server/index.js",
+    "db": "npm run db:stop && npm run db:start & npm run schema",
+    "db:start": "cd dev/database && docker-compose run --rm --name postgres_dictionary -p 5432:5432 db",
+    "db:stop": "(docker stop postgres_dictionary || true) && (docker wait postgres_dictionary || true) && (docker rm postgres_dictionary || true)",
+    "schema": "sleep 5 && wait-on tcp:5432 && sleep 2 && wait-on tcp:5432 && cd dev/database && node createSchema.js",
+    "seed": "node dev/database/seedDatabase.js",
     "heroku-postbuild": "npm run build",
-    "seed": "node ./dev/database/seedDatabase.js"
+    "scottishDb": "npm run scottishDb:stop && npm run scottishDb:start & npm run scottishDb:schema",
+    "scottishDb:start": "cd dev/scottishDatabase && docker-compose run --rm --name postgres_scottish -p 5555:5432 db",
+    "scottishDb:stop": "(docker stop postgres_scottish || true) && (docker wait postgres_scottish || true) && (docker rm postgres_scottish || true)",
+    "scottishDb:schema": "sleep 5 && wait-on tcp:5555 && sleep 2 && wait-on tcp:5555 && cd dev/scottishDatabase && node createSchema.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -23,15 +32,23 @@
     "body-parser": "1.19.0",
     "chart.js": "2.8.0",
     "classnames": "2.2.6",
+    "concurrently": "^5.2.0",
     "cookie-parser": "1.4.4",
+    "dataloader": "^2.0.0",
     "express": "4.16.4",
+    "filtrex": "^2.0.0",
+    "graphql": "^15.0.0",
+    "graphql-tools": "^6.0.5",
+    "handlebars": "4.5.3",
     "history": "4.9.0",
     "js-cookie": "2.2.0",
     "jsonwebtoken": "8.5.1",
+    "knex": "^0.20.15",
     "lodash": "4.17.15",
     "moment": "2.24.0",
     "node-sass": "4.12.0",
     "pg": "7.11.0",
+    "pluralize": "^8.0.0",
     "prop-types": "15.7.2",
     "react": "16.8.6",
     "react-chartjs-2": "2.7.6",
@@ -42,7 +59,8 @@
     "react-scripts": "3.0.1",
     "recompose": "0.30.0",
     "uuid": "3.3.2",
-    "validate.js": "0.12.0"
+    "validate.js": "0.12.0",
+    "wait-on": "^4.0.2"
   },
   "devDependencies": {
     "eslint-plugin-prettier": "3.1.0",

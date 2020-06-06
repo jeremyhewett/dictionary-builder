@@ -1,21 +1,16 @@
 const _ = require('lodash');
 const express = require('express');
 const helpers = require('../helpers');
-const Database = require('../database/Database');
+const db = require('../database/db');
 const Auth = require('../auth/Auth');
 const Entry = require('../database/types/Entry');
 const Headword = require('../database/types/Headword');
 const Meaning = require('../database/types/Meaning');
-const CitationMeaningLink = require('../database/types/CitationMeaningLink');
 const Citation = require('../database/types/Citation');
-const Book = require('../database/types/Book');
-const Periodical = require('../database/types/Periodical');
-const Website = require('../database/types/Website');
-const Utterance = require('../database/types/Utterance');
 
 class Entries {
   constructor(config = {}) {
-    this._db = new Database();
+    this._db = db;
     let auth = new Auth(config);
     this.router = express.Router();
     this.router.get('/', this.getEntries.bind(this));
@@ -47,24 +42,19 @@ class Entries {
     let id = req.params.id;
 
     let entry = await this._db.get(new Entry({ id }));
-    let [headword, meanings] = await Promise.all([
+    let [headword, meaningDisplays, referenceDisplays] = await Promise.all([
       this._db.get(new Headword({ id: entry.headwordId })),
-      this._db.query(new Meaning({ entryId: id }))
+      this._db.query(new MeaningDisplay({ entryId: id })),
+      this._db.query(new ReferenceDisplay({ entryId: id })),
     ]);
-    let citationLinks = await this._db.query(new CitationMeaningLink({ meaningId: _.map(meanings, 'id') }));
-    let citations = await this._db.query(new Citation({ id: _.map(citationLinks, 'citationId') }));
-    let citationIds = _.map(citations, 'id');
-    let [books, periodicals, websites, utterances] = await Promise.all([
-      this._db.query(new Book({ citationId: citationIds })),
-      this._db.query(new Periodical({ citationId: citationIds })),
-      this._db.query(new Website({ citationId: citationIds })),
-      this._db.query(new Utterance({ citationId: citationIds }))
+    let [meanings, citationDisplays, references] = await Promise.all([
+      this._db.query(new Meaning({ id: _.map(meaningDisplays, 'meaningId') })),
+      this._db.query(new CitationDisplay({ meaningId: _.map(meaningDisplays, 'id') })),
+      this._db.query(new Reference({ id: _.map(referenceDisplays, 'referenceId') })),
     ]);
+    let citations = await this._db.query(new Citation({ id: _.map(citationDisplays, 'citationId') }));
+    let sources = await this._db.query(new Source({ id: _.map(citations, 'sourceId') }));
 
-    let booksByCitationId = _.keyBy(books, 'citationId');
-    let periodicalsByCitationId = _.keyBy(periodicals, 'citationId');
-    let websitesByCitationId = _.keyBy(websites, 'citationId');
-    let utterancesByCitationId = _.keyBy(utterances, 'citationId');
     let citationsById = _.keyBy(citations, 'id');
     citationLinks.forEach(link => link.citation = citationsById[link.citationId]);
     let citationLinksByMeaningId = _.groupBy(citationLinks, 'meaningId');
@@ -72,9 +62,9 @@ class Entries {
     let data = Object.assign(helpers.toJsonApi(entry), {
       relationships: {
         headword: helpers.toJsonApi(headword),
-        meanings: meanings.map(meaning => Object.assign(helpers.toJsonApi(meaning), {
+        meaningDisplays: meaningDisplays.map(meaningDisplay => Object.assign(helpers.toJsonApi(meaningDisplay), {
           relationships: {
-            citations: citationLinksByMeaningId[meaning.id].map(link => Object.assign(helpers.toJsonApi(link.citation), {
+            citations: citationLinksByMeaningId[meaningDisplay.id].map(link => Object.assign(helpers.toJsonApi(link.citation), {
               relationships: {
                 book: helpers.toJsonApi(booksByCitationId[link.citation.id]),
                 periodical: helpers.toJsonApi(periodicalsByCitationId[link.citation.id]),

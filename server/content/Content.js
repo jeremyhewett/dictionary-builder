@@ -1,11 +1,11 @@
 const express = require('express');
-const Database = require('../database/Database');
+const db = require('../database/db');
 const Auth = require('../auth/Auth');
 const Content = require('../database/types/Content');
 
 class ContentHandler {
   constructor(config = {}) {
-    this._db = new Database();
+    this._db = db;
     this._auth = new Auth(config);
     this.router = express.Router();
     this.router.get('/:section', this.getSection.bind(this));

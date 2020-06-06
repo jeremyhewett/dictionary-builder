@@ -1,21 +1,28 @@
 const constructors = {
-  Book: require('./database/types/Book'),
-  Periodical: require('./database/types/Periodical'),
-  Website: require('./database/types/Website'),
-  Utterance: require('./database/types/Utterance'),
+  Author: require('./database/types/Author'),
   Citation: require('./database/types/Citation'),
-  CitationMeaningLink: require('./database/types/CitationMeaningLink'),
+  CitationDisplay: require('./database/types/CitationDisplay'),
   Content: require('./database/types/Content'),
   Entry: require('./database/types/Entry'),
-  EntryReferenceLink: require('./database/types/EntryReferenceLink'),
+  Genre: require('./database/types/Genre'),
+  Headword: require('./database/types/Headword'),
   Image: require('./database/types/Image'),
   Meaning: require('./database/types/Meaning'),
-  MeaningEntryLink: require('./database/types/MeaningEntryLink'),
+  MeaningDisplay: require('./database/types/MeaningDisplay'),
+  MeaningDisplayNote: require('./database/types/MeaningDisplayNote'),
+  Medium: require('./database/types/Medium'),
+  MediumField: require('./database/types/MediumField'),
   Reference: require('./database/types/Reference'),
+  ReferenceDisplay: require('./database/types/ReferenceDisplay'),
+  RelatedMeaningDisplay: require('./database/types/RelatedMeaningDisplay'),
   Role: require('./database/types/Role'),
-  UsageNote: require('./database/types/UsageNote'),
+  Source: require('./database/types/Source'),
+  SourceField: require('./database/types/SourceField'),
+  SourceValue: require('./database/types/SourceValue'),
+  SpellingVariant: require('./database/types/SpellingVariant'),
   User: require('./database/types/User'),
-  UserRoleLink: require('./database/types/UserRoleLink'),
+  UserRole: require('./database/types/UserRole')
+
 };
 
 module.exports.toJsonApi = (instance) => {

@@ -32,9 +32,9 @@ class Headword extends Component {
     return (
       <div>
         {
-          headword.relationships.citations.map(citation => (
-            <CitationCard key={citation.id} citation={citation} />
-          ))
+          headword.meanings.reduce((citations, meaning) => citations.concat(meaning.citations.map(citation => (
+            <CitationCard key={citation.id} meaning={meaning} citation={citation} />
+          ))), [])
         }
       </div>
     );

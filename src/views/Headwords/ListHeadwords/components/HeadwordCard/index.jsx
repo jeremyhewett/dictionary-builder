@@ -23,7 +23,7 @@ class HeadwordCard extends Component {
 
     const rootClassName = classNames(classes.root, className);
 
-    let citationsCount = headword.relationships.citations.count;
+    let citationsCount = headword.meanings.reduce((total, meaning) => total += meaning.citationsStats.count.value, 0);
 
     return (
       <Link to={`/headwords/${headword.id}`}>
@@ -33,7 +33,7 @@ class HeadwordCard extends Component {
               className={classes.title}
               variant="h4"
             >
-              {headword.attributes.headword}
+              {headword.headword}
             </Typography>
             <Typography
               className={classes.description}

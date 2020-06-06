@@ -6,12 +6,11 @@ class Entry {
     this.firstField = entity.firstField;
     this.etymology = entity.etymology;
     this.isPublic = entity.isPublic;
-    this.spellingVariants = entity.spellingVariants;
     this.superscript = entity.superscript;
-    this.dagger = entity.dagger;
+    this.isArchaic = entity.isArchaic;
     this.generalLabels = entity.generalLabels;
     this.proofingStatus = entity.proofingStatus;
-    this.proofingUser = entity.proofingUser;
+    this.proofingUserId = entity.proofingUserId;
     this.fistNote = entity.fistNote;
     this.imageFileName = entity.imageFileName;
     this.comment = entity.comment;
@@ -23,6 +22,20 @@ class Entry {
     this.chiefEditorOk = entity.chiefEditorOk;
     this.finalProofing = entity.finalProofing;
     this.editStatusComment = entity.editStatusComment;
+  }
+
+  percentageComplete() {
+    let stages = [
+      'firstDraft',
+      'revisedDraft',
+      'semanticallyRevised',
+      'editedForStyle',
+      'proofread',
+      'chiefEditorOk',
+      'finalProofing'
+    ];
+    let stageNumber = stages.map(stage => !!this[stage]).lastIndexOf(true) + 1;
+    return stageNumber * 100 / stages.length;
   }
 }
 

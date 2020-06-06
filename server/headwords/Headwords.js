@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const express = require('express');
 const helpers = require('../helpers');
-const Database = require('../database/Database');
+const db = require('../database/db');
 const Auth = require('../auth/Auth');
 const Headword = require('../database/types/Headword');
 const Entry = require('../database/types/Entry');
@@ -9,7 +9,7 @@ const Citation = require('../database/types/Citation');
 
 class Headwords {
   constructor(config = {}) {
-    this._db = new Database();
+    this._db = db;
     let auth = new Auth(config);
     this.router = express.Router();
     this.router.get('/', auth.authorize('editor', this.bind(this.getHeadwords)));

@@ -31,7 +31,7 @@ export const getUsers = (limit = 10) => {
   });
 };
 
-export const getUser = id => {
+export const getUser = (id) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const user = users.find(user => user.id === id);

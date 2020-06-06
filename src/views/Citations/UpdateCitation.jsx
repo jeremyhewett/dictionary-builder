@@ -8,14 +8,6 @@ import { Dashboard as DashboardLayout } from 'layouts';
 import service from 'services/citations';
 import EditCitation from './EditCitation';
 
-import {
-  Portlet,
-  PortletHeader,
-  PortletLabel,
-  PortletContent,
-  PortletFooter
-} from 'components';
-
 const styles = theme => ({
   title: {
     display: 'inline-block',

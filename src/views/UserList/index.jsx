@@ -66,7 +66,7 @@ class UserList extends Component {
 
   async deleteUsers() {
     let selectedUsers = this.state.selectedUsers.map(userId => this.state.users.find(user => user.id === userId));
-    await Promise.all(selectedUsers.map(user => service.deleteUser(user)));
+    await service.deleteUsers(selectedUsers);
     this.getUsers();
   }
 
@@ -87,7 +87,7 @@ class UserList extends Component {
     }
 
     let visibleUsers = searchString ?
-      users.filter(user => `${user.attributes.firstName} ${user.attributes.lastName}`.toLowerCase().includes(searchString.toLowerCase()) || user.attributes.email.toLowerCase().includes(searchString.toLowerCase())) :
+      users.filter(user => `${user.firstName} ${user.lastName}`.toLowerCase().includes(searchString.toLowerCase()) || user.email.toLowerCase().includes(searchString.toLowerCase())) :
       users;
     if (visibleUsers.length === 0) {
       return <Typography variant="h6">There are no users</Typography>;
